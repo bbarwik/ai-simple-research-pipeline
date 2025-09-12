@@ -1,5 +1,5 @@
 [project]
-name = "ai-pipeline"
+name = "ai-simple-research-pipeline"
 version = "0.1.0"
 description = "AI-powered project built with ai-pipeline-core framework"
 readme = "README.md"
@@ -24,12 +24,12 @@ dependencies = [
 ]
 
 [project.scripts]
-ai-pipeline = "ai_pipeline.__main__:main"
+ai-simple-research-pipeline = "ai_simple_research_pipeline.__main__:main"
 
 [project.urls]
-Homepage = "https://github.com/bbarwik/ai-pipeline"
-Repository = "https://github.com/bbarwik/ai-pipeline"
-Issues = "https://github.com/bbarwik/ai-pipeline/issues"
+Homepage = "https://github.com/bbarwik/ai-simple-research-pipeline"
+Repository = "https://github.com/bbarwik/ai-simple-research-pipeline"
+Issues = "https://github.com/bbarwik/ai-simple-research-pipeline/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -56,7 +56,7 @@ markers = [
 ]
 
 [tool.coverage.run]
-source = ["ai_pipeline"]
+source = ["ai_simple_research_pipeline"]
 omit = ["*/tests/*", "*/test_*.py"]
 
 [tool.coverage.report]
@@ -100,7 +100,7 @@ pythonVersion = "3.12"
 typeCheckingMode = "strict"
 
 include = [
-    "ai_pipeline",
+    "ai_simple_research_pipeline",
     "tests",
 ]
 
@@ -145,7 +145,7 @@ search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 
 [[tool.bumpversion.files]]
-filename = "ai_pipeline/__init__.py"
+filename = "ai_simple_research_pipeline/__init__.py"
 search = '__version__ = "{current_version}"'
 replace = '__version__ = "{new_version}"'
 
@@ -154,25 +154,25 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["ai_pipeline"]
+packages = ["ai_simple_research_pipeline"]
 include = [
-  "ai_pipeline/py.typed",
-  "ai_pipeline/**/*.yml",
-  "ai_pipeline/**/*.json",
-  "ai_pipeline/**/*.jinja",
-  "ai_pipeline/**/*.jinja2",
-  "ai_pipeline/**/*.j2",
+  "ai_simple_research_pipeline/py.typed",
+  "ai_simple_research_pipeline/**/*.yml",
+  "ai_simple_research_pipeline/**/*.json",
+  "ai_simple_research_pipeline/**/*.jinja",
+  "ai_simple_research_pipeline/**/*.jinja2",
+  "ai_simple_research_pipeline/**/*.j2",
 ]
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "ai_pipeline/**/*.py",
-    "ai_pipeline/py.typed",
-    "ai_pipeline/**/*.yml",
-    "ai_pipeline/**/*.jinja",
-    "ai_pipeline/**/*.jinja2",
-    "ai_pipeline/**/*.j2",
-    "ai_pipeline/**/*.json",
+    "ai_simple_research_pipeline/**/*.py",
+    "ai_simple_research_pipeline/py.typed",
+    "ai_simple_research_pipeline/**/*.yml",
+    "ai_simple_research_pipeline/**/*.jinja",
+    "ai_simple_research_pipeline/**/*.jinja2",
+    "ai_simple_research_pipeline/**/*.j2",
+    "ai_simple_research_pipeline/**/*.json",
     "README.md",
     "LICENSE",
     "pyproject.toml",

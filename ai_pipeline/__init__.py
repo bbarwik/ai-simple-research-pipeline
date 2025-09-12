@@ -1,4 +1,4 @@
-"""ai-pipeline - AI-powered project built with ai-pipeline-core framework."""
+"""ai-simple-research-pipeline - AI-powered project built with ai-pipeline-core framework."""
 
 __version__ = "0.1.0"
 
