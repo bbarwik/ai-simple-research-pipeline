@@ -1,7 +1,12 @@
 """AI Simple Research Pipeline - Startup due diligence report generator."""
 
-from .deploy import research_pipeline
-from .flows import report_flow, review_flow, standardization_flow, summary_flow
+from .flows import (
+    report_flow,
+    review_flow,
+    standardization_flow,
+    summary_flow,
+)
+from .research_pipeline import research_pipeline
 
 __version__ = "0.1.0"
 

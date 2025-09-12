@@ -45,6 +45,8 @@ The `docker-compose.override.yml` file is gitignored and can contain user-specif
 
 ## Quick start
 
+### Local Usage
+
 ```bash
 # Set up your project directory structure
 mkdir -p projects/my_project/user_input
@@ -64,6 +66,67 @@ python -m ai_simple_research_pipeline projects/my_project \
 # Debug traces
 LMNR_DEBUG=true python -m ai_simple_research_pipeline projects/my_project
 ```
+
+### Docker Compose Deployment
+
+The pipeline can be deployed using Docker Compose for production environments:
+
+```bash
+# 1. Create a .env file with your configuration
+cat > .env << 'EOF'
+# Required: LLM API configuration (recommended: OpenRouter)
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+OPENAI_API_KEY=sk-or-v1-your-key-here
+
+# Optional: Observability with Laminar (free account at laminar.sh)
+LMNR_PROJECT_API_KEY=lmnr_your_key_here
+
+# Optional: Google Cloud Storage configuration
+# Place your GCS service account key.json in the project root
+# The pipeline will use GCS if a gs:// URL is provided
+EOF
+
+# 2. (Optional) Add Google Cloud Storage credentials
+# Download your service account key from Google Cloud Console
+# Save it as key.json in the project root
+cp /path/to/your/gcs-service-account-key.json ./key.json
+
+# 3. Run with Docker Compose
+docker compose up -d
+
+# 4. Execute pipeline with local storage
+docker compose exec app python -m ai_simple_research_pipeline projects/my_project
+
+# 5. Execute pipeline with Google Cloud Storage
+# Ensure your bucket has a user_input/ directory with your documents
+docker compose exec app python -m ai_simple_research_pipeline gs://your-bucket-name/
+
+# Example with actual GCS bucket:
+docker compose exec app python -m ai_simple_research_pipeline gs://ai-research-pipeline-1757702160/
+```
+
+### Google Cloud Storage Setup
+
+To use Google Cloud Storage as your storage backend:
+
+1. **Create a GCS bucket** in your Google Cloud Console
+2. **Create a service account** with Storage Admin permissions for the bucket
+3. **Download the service account key** as `key.json` and place it in the project root
+4. **Prepare your bucket structure**:
+   ```bash
+   # Your bucket should have this structure:
+   gs://your-bucket-name/
+   └── user_input/
+       ├── pitch_deck.pdf
+       ├── whitepaper.pdf
+       └── other_documents...
+   ```
+5. **Run the pipeline** pointing to your GCS bucket:
+   ```bash
+   docker compose exec app python -m ai_simple_research_pipeline gs://your-bucket-name/
+   ```
+
+All pipeline outputs (initial_summary, standardized_file, review_finding, final_report) will be automatically saved to the GCS bucket alongside your input documents.
 
 ## Pipeline Stages
 
@@ -114,38 +177,67 @@ The pipeline uses Google Gemini models by default (configured in `flow_options.p
 Set these environment variables (typically in a `.env` file):
 
 ```bash
-# Required for LLM operations (OpenAI-compatible via LiteLLM proxy)
-OPENAI_BASE_URL=http://localhost:4000
-OPENAI_API_KEY=sk-...
+# Required: LLM API configuration
+# Option 1: OpenRouter (recommended for ease of use)
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
+OPENAI_API_KEY=sk-or-v1-your-key-here
 
-# Optional services
+# Option 2: Local LiteLLM proxy
+# OPENAI_BASE_URL=http://localhost:4000
+# OPENAI_API_KEY=sk-...
+
+# Optional: Observability and monitoring
+LMNR_PROJECT_API_KEY=lmnr_...  # Free account at laminar.sh
+LMNR_DEBUG=true                # Enable debug traces
+
+# Optional: Workflow orchestration
 PREFECT_API_URL=http://localhost:4200
 PREFECT_API_KEY=pnu_...
-LMNR_PROJECT_API_KEY=lmnr_...
-LMNR_DEBUG=true
+
+# Optional: Google Cloud Storage
+# Place your service account key.json in the project root
+# No environment variable needed - detected automatically
 ```
 
 ## Project layout
 
 ```
 ai_simple_research_pipeline/
-├── documents/                    # Document type definitions
-│   ├── flow/                     # Flow documents (persistent across flows)
+├── documents/                      # Document type definitions
+│   ├── flow/                       # Flow documents (persistent across flows)
 │   │   ├── user_input_document.py
 │   │   ├── initial_summary_document.py
 │   │   ├── standardized_file_document.py
 │   │   ├── findings_document.py
 │   │   └── final_report_document.py
-│   └── task/                     # Task documents (temporary)
-├── flows/                        # Four-stage pipeline flows
-│   ├── step_01_summary/          # Creates initial summary
-│   ├── step_02_standardization/  # Converts to English Markdown
-│   ├── step_03_review/           # Generates findings
-│   └── step_04_report/           # Writes final report
-├── prompts/                      # Shared prompt templates
+│   └── task/                       # Task documents (temporary)
+├── flows/                          # Four-stage pipeline flows
+│   ├── step_01_summary/            # Creates initial summary
+│   │   ├── summary_flow.py
+│   │   └── tasks/
+│   │       ├── create_initial_summary.py
+│   │       └── create_initial_summary.jinja2
+│   ├── step_02_standardization/    # Converts to English Markdown
+│   │   ├── standardization_flow.py
+│   │   └── tasks/
+│   │       ├── standardize_files.py
+│   │       └── standardize_files.jinja2
+│   ├── step_03_review/             # Generates findings
+│   │   ├── review_flow.py
+│   │   └── tasks/
+│   │       ├── generate_findings.py
+│   │       └── generate_findings.jinja2
+│   └── step_04_report/             # Writes final report
+│       ├── report_flow.py
+│       └── tasks/
+│           ├── write_final_report.py
+│           └── write_final_report.jinja2
+├── prompts/                        # Shared prompt templates
 │   └── document_formatting_rules.jinja2
-├── flow_options.py               # Model configuration
-└── __main__.py                   # CLI entry point
+├── cli.py                          # CLI interface for running pipelines
+├── research_pipeline.py            # Main research pipeline orchestration
+├── flow_options.py                 # Model configuration
+└── __main__.py                     # Prefect deployment entry point
 ```
 
 ## Everyday commands

@@ -165,3 +165,6 @@ output/
 
 # DevContainer local overrides
 .devcontainer/docker-compose.override.yml
+
+# Docker Compose overrides
+docker-compose.override.yml

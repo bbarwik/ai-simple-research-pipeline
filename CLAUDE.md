@@ -27,30 +27,44 @@ The project follows a flow-centric architecture where each workflow is self-cont
 ai_simple_research_pipeline/
 ├── documents/                      # Document type definitions
 │   ├── flow/                      # Flow documents (persistent across flows)
-│   │   └── example_document.py    # ExampleDocument(FlowDocument)
+│   │   ├── user_input_document.py
+│   │   ├── initial_summary_document.py
+│   │   ├── standardized_file_document.py
+│   │   ├── findings_document.py
+│   │   └── final_report_document.py
 │   └── task/                      # Task documents (temporary within tasks)
-│       └── draft_document.py      # DraftDocument(TaskDocument)
+│       └── __init__.py            # Empty for this project
 │
 ├── flows/                          # Pipeline flows with colocated tasks
 │   ├── __init__.py                # MUST export FLOWS list
-│   └── step_01_example/           # Example flow
-│       ├── __init__.py
-│       ├── example_flow.py        # Flow definition with FlowConfig
-│       └── tasks/                 # Flow-specific tasks
-│           ├── __init__.py
-│           ├── process_task.py    # Task implementation
-│           └── process_task.jinja2  # Colocated prompt template (matching name)
-│
-├── tasks/                          # Shared tasks (used by multiple flows)
-│   └── validate/                   # Task category folder
-│       ├── validate.py            # Example shared task
-│       └── validate.jinja2        # Prompt template for validate task
+│   ├── step_01_summary/           # Summary flow
+│   │   ├── summary_flow.py        # Flow definition with FlowConfig
+│   │   └── tasks/
+│   │       ├── create_initial_summary.py
+│   │       └── create_initial_summary.jinja2
+│   ├── step_02_standardization/   # Standardization flow
+│   │   ├── standardization_flow.py
+│   │   └── tasks/
+│   │       ├── standardize_files.py
+│   │       └── standardize_files.jinja2
+│   ├── step_03_review/            # Review flow
+│   │   ├── review_flow.py
+│   │   └── tasks/
+│   │       ├── generate_findings.py
+│   │       └── generate_findings.jinja2
+│   └── step_04_report/            # Report flow
+│       ├── report_flow.py
+│       └── tasks/
+│           ├── write_final_report.py
+│           └── write_final_report.jinja2
 │
 ├── prompts/                        # Shared prompt templates
-│   └── common.jinja2
+│   └── document_formatting_rules.jinja2
 │
+├── cli.py                         # CLI interface using run_cli
+├── research_pipeline.py           # Main pipeline orchestration
 ├── flow_options.py                # ProjectFlowOptions extends FlowOptions
-└── __main__.py                    # CLI entry point with run_cli
+└── __main__.py                    # Prefect deployment entry point
 ```
 
 ### Key Organizational Rules
@@ -613,31 +627,55 @@ class ProjectFlowOptions(FlowOptions):
     # Don't add fields unless the project needs them
 ```
 
-### CLI Entry Point
+### CLI Entry Points
+
+The project has two entry points:
+
+#### CLI for Running Pipelines (cli.py)
 
 ```python
-# ai_simple_research_pipeline/__main__.py
-from ai_pipeline_core import DocumentList, FlowOptions
+# ai_simple_research_pipeline/cli.py
 from ai_pipeline_core.simple_runner import run_cli
 from .flow_options import ProjectFlowOptions
 from .flows import FLOWS
 
 TRACE_NAME = (__package__ or __name__).split(".")[0].replace("_", "-")
 
-def initialize_project(options: FlowOptions) -> tuple[str, DocumentList]:
-    # TODO: Implement project initialization
-    return "", DocumentList([])
-
 def main():
+    """Main CLI entry point."""
     run_cli(
         flows=FLOWS,
         options_cls=ProjectFlowOptions,
-        initializer=initialize_project,
-        trace_name=TRACE_NAME,  # Consistent use of constant
+        trace_name=TRACE_NAME,
     )
 
 if __name__ == "__main__":
     main()
+```
+
+#### Prefect Deployment (__main__.py)
+
+```python
+# ai_simple_research_pipeline/__main__.py
+from ai_pipeline_core import get_pipeline_logger
+from ai_pipeline_core.prefect import serve
+from ai_simple_research_pipeline.flows import FLOWS
+from ai_simple_research_pipeline.research_pipeline import research_pipeline
+
+logger = get_pipeline_logger(__name__)
+
+def deploy_pipeline():
+    logger.info("Starting deployment service...")
+    deployments = []
+    for flow in [research_pipeline, *FLOWS]:
+        deployment_name = flow.name or "unnamed_flow"
+        deployments.append(
+            flow.to_deployment(name=deployment_name)
+        )
+    serve(*deployments)
+
+if __name__ == "__main__":
+    deploy_pipeline()
 ```
 
 ## Testing Patterns

@@ -2,127 +2,128 @@
   "risks": [
     {
       "id": "R1",
-      "title": "Complex Local Setup and High Hardware Requirements Limit Mainstream Adoption",
-      "category": "market",
+      "title": "High Technical Resource Requirements for Local AI Models",
+      "category": "tech",
       "severity": "high",
-      "horizon": "short",
-      "description": "The project's reliance on local AI processing and dedicated server hardware, such as a Mac mini or similar, presents a significant barrier to entry for mainstream users. The specified hardware requirements, particularly for vision models (e.g., Qwen2.5-VL needing 24GB VRAM and 32GB system RAM), will deter a broader audience accustomed to simple, cloud-based solutions.",
+      "horizon": "medium",
+      "description": "Running advanced local AI models like Qwen2.5-VL requires significant hardware, specifically high VRAM and system RAM. This poses a barrier to entry for many users, as dedicated servers or high-end consumer hardware (like a Mac M-series with 64GB RAM) are needed, which could limit the project's mainstream adoption despite its 'user-friendly' claim.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "Niche vs. Mainstream Appeal: System complexity and local server requirement might limit initial appeal."
+          "file": "FS5HHF",
+          "quote": "The 7B/8B Qwen2.5-VL models require approximately 24GB VRAM and 32GB system RAM. The 32B version would need a Mac M-series with at least 32GB RAM (64GB recommended) and over 60GB of storage. These are significant hardware considerations for local deployment."
         },
         {
-          "file": "3MWG4Q",
-          "quote": "The 7B/8B Qwen2.5-VL models require approximately 24GB VRAM and 32GB system RAM. The 32B version would need a Mac M-series with at least 32GB RAM (64GB recommended) and over 60GB of storage. These are significant hardware considerations for local deployment."
+          "file": "FS5HHF",
+          "quote": "User hardware costs for running AI models locally can be a barrier."
         }
       ],
       "mitigation": [
-        "Optimize models for lower-end hardware and provide clear, simple setup guides.",
-        "Offer a tiered approach with a cloud AI processing service for users without high-end local hardware (with user consent and data anonymization where appropriate).",
-        "Partner with OEMs to offer pre-configured, optimized hardware solutions.",
-        "Emphasize the long-term cost benefits of local processing vs. recurring cloud fees."
+        "Optimize models for efficient inference on a wider range of hardware.",
+        "Provide clear hardware specifications and guides for cost-effective setups.",
+        "Offer an optional cloud-based AI processing service for users without sufficient local hardware.",
+        "Partner with OEMs to offer custom-branded hardware optimized for PrivateAI at competitive prices."
       ],
       "confidence": 0.9
     },
     {
       "id": "R2",
-      "title": "Rapidly Evolving AI Landscape and Big Tech Competition",
-      "category": "competition",
-      "severity": "high",
-      "horizon": "medium",
-      "description": "The AI industry is evolving at an unprecedented pace. Large technology companies, with vast resources, could quickly develop and integrate similar privacy-focused or local-first features, potentially eroding PrivateAI's competitive advantage before it gains significant market share.",
-      "evidence": [
-        {
-          "file": "3MWG4Q",
-          "quote": "Rapidly Evolving AI Landscape & Big Tech Competition: Major tech companies could release similar features. This is a significant concern."
-        },
-        {
-          "file": "3MWG4Q",
-          "quote": "Sustainability of 'Local-First' Advantage: OS vendors might improve on-device privacy features."
-        }
-      ],
-      "mitigation": [
-        "Continuously innovate on core privacy-by-design principles, extensibility, and community-driven development that Big Tech struggles to replicate.",
-        "Focus on delivering truly deeper personalization and user control enabled by local access that generic cloud solutions cannot match.",
-        "Build a strong developer ecosystem through open-source contributions and a plugin marketplace."
-      ],
-      "confidence": 0.85
-    },
-    {
-      "id": "R3",
-      "title": "Inherent Security Risks of Plugin Ecosystem and Local Code Execution",
+      "title": "Security Risks with Plugin Architecture and Execution",
       "category": "security",
       "severity": "high",
       "horizon": "short",
-      "description": "The initial idea of allowing local compilation and execution of Rust source code for plugins carries extremely high security risks. Without robust sandboxing, malicious plugins could gain full access to user data and system resources. Even with proposed WASM sandboxing, ensuring the security of third-party plugins in an open-source model is a significant challenge.",
+      "description": "The initial idea of downloading and compiling Rust source code for plugins locally (high-risk method for Rust plugins) poses severe security vulnerabilities and usability challenges. Malware could be introduced, and compilation could fail, making the system unstable or compromised.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "Initial (High-Risk) Idea for Rust Plugins: Download Rust source code, compile it locally on the user's machine, and then run the resulting binary. This approach is strongly advised against due to major security risks and usability hurdles."
+          "file": "FS5HHF",
+          "quote": "Initial (High-Risk) Idea for Rust Plugins: Download Rust source code, compile it locally on the user's machine, and then run the resulting binary. The core application would manage these processes. Research documents strongly advise against this due to major security risks and usability hurdles."
         },
         {
-          "file": "3MWG4Q",
-          "quote": "Plugin System Security: Local compilation of Rust source is high-risk. Mitigation: Adopt WASM for sandboxed execution or, at least, signed pre-compiled binaries with a strong permission model."
+          "file": "OPU74P",
+          "quote": "The 'initial (high-risk) idea for Rust plugins' (local source compilation) is strongly advised against due to security risks and usability hurdles in research documents."
         }
       ],
       "mitigation": [
-        "Strictly enforce WebAssembly (WASM) for all plugins, providing a sandboxed execution environment.",
-        "Implement a robust permission model for plugins, requiring explicit user consent for resource access (filesystem, network).",
-        "Establish a clear distinction between audited/official plugins and unaudited third-party plugins, with warnings for users.",
-        "Develop a transparent vulnerability disclosure and rapid patching process."
+        "Adopt WebAssembly (WASM) for sandboxed execution of plugins, providing a secure and performant environment.",
+        "Distribute pre-compiled and digitally signed binaries for plugins to ensure authenticity and integrity.",
+        "Implement OS-level sandboxing or MicroVMs for higher security requirements, especially for untrusted sources.",
+        "Develop a robust plugin manifest system that clearly defines requested permissions and data access."
       ],
       "confidence": 0.95
     },
     {
-      "id": "R4",
-      "title": "Challenges in Monetization for a Local-First, Open-Source Product",
-      "category": "finance",
+      "id": "R3",
+      "title": "Challenges in Mobile Data Collection and Integration",
+      "category": "product",
       "severity": "medium",
-      "horizon": "medium",
-      "description": "Monetizing an open-source, local-first product can be challenging. Users who prioritize data sovereignty may also be averse to subscription models for what they perceive as locally-owned software. The reliance on 'convenience' features as a primary differentiator for paid tiers might not be enough to attract and retain sufficient paying users.",
+      "horizon": "short",
+      "description": "Full and continuous background screen monitoring and detailed UI event capture, as envisioned for desktops, are highly challenging and likely infeasible on non-jailbroken iOS and Android devices due to strict OS-level restrictions. This significantly limits the 'second brain' functionality on mobile platforms and could hinder pervasive digital life integration.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "Monetization: Justifying subscriptions for local-first software; funding open-source. Mitigation: Diversified revenue streams (see Business Model)."
+          "file": "FS5HHF",
+          "quote": "Full, continuous background screen monitoring and detailed UI event capture (as envisioned for desktops) are highly challenging and likely infeasible on non-jailbroken iOS and Android devices due to strict OS-level restrictions on background activity and data access."
         },
         {
-          "file": "3MWG4Q",
-          "quote": "Paid 'Convenience' Version (e.g., $25/month for individuals): This tier will provide features that simplify setup, offer a more polished user experience, and grant access to managed services."
+          "file": "OPU74P",
+          "quote": "Mobile app strategy initially focuses on user-initiated actions and available OS integrations due to restrictions on continuous background monitoring."
         }
       ],
       "mitigation": [
-        "Clearly articulate the value proposition of paid 'convenience' features and managed services (e.g., seamless updates, mobile apps, curated marketplace, secure remote access).",
-        "Explore a freemium model with truly compelling premium features that go beyond convenience and offer enhanced functionality.",
-        "Leverage professional services and enterprise solutions as significant revenue drivers.",
-        "Actively engage the community to understand willingness to pay and desired premium features."
+        "Focus mobile app development on user-initiated actions (e.g., Share Button integration) and available OS integrations (e.g., calendar events, health data).",
+        "Explore notifications capture and foreground app capture for context, with explicit user permission.",
+        "Prioritize the desktop experience for the MVP and defer complex mobile integrations to later phases, after deeper market and technical evaluation.",
+        "Communicate current mobile capabilities clearly to manage user expectations."
+      ],
+      "confidence": 0.85
+    },
+    {
+      "id": "R4",
+      "title": "Dependence on Open-Source Ecosystem and Rapid AI Landscape Changes",
+      "category": "tech",
+      "severity": "medium",
+      "horizon": "medium",
+      "description": "PrivateAI relies heavily on the open-source AI ecosystem, which is rapidly evolving. While this offers flexibility, it also means constant effort is required to track, integrate, and optimize new models, potentially diverting resources from core development. There's also a risk that larger tech companies could release similar features, impacting the competitive landscape.",
+      "evidence": [
+        {
+          "file": "FS5HHF",
+          "quote": "The system needs a strategy for handling updates to local AI models (LLMs, Vision, STT). This includes managing model downloads, resource allocation, and ensuring compatibility as new and improved open-source models emerge frequently. This was noted as a key question for investors."
+        },
+        {
+          "file": "FS5HHF",
+          "quote": "Rapidly Evolving AI Landscape & Big Tech Competition: Major tech companies could release similar features. This is a significant concern."
+        }
+      ],
+      "mitigation": [
+        "Invest in a strong Developer Relations (DevRel) team to monitor the AI space and engage with open-source communities.",
+        "Implement a flexible architecture (e.g., LiteLLM proxy) to easily swap out or combine different LLMs.",
+        "Focus on features that Big Tech cannot easily replicate due to privacy and local-first constraints.",
+        "Prioritize modularity to allow for easy integration of new open-source components and models."
       ],
       "confidence": 0.8
     },
     {
       "id": "R5",
-      "title": "Limitations in Mobile Data Collection and Integration",
-      "category": "tech",
+      "title": "Sustainability of Monetization Model for Open-Source, Local-First Software",
+      "category": "finance",
       "severity": "medium",
-      "horizon": "short",
-      "description": "Operating system restrictions on mobile devices (iOS and Android) severely limit the ability to conduct continuous background screen monitoring and detailed UI event capture, which are core data sources for the desktop vision. This significantly impedes the vision of a 'comprehensive digital footprint' across all user devices.",
+      "horizon": "long",
+      "description": "Justifying subscription fees for a local-first, open-source product can be challenging, as users might expect core functionality to be free. While a freemium model is planned, convincing users to pay for 'convenience' features (like managed updates or mobile apps) or optional cloud services might prove difficult against the backdrop of a free, open-source core, potentially impacting revenue targets.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "Initial Scope is Limited: Full, continuous background screen monitoring and detailed UI event capture (as envisioned for desktops) are highly challenging and likely infeasible on non-jailbroken iOS and Android devices due to strict OS-level restrictions on background activity and data access."
+          "file": "FS5HHF",
+          "quote": "The open-source core system will be free for personal, non-commercial use, with paid 'convenience' features and services offered for an easier setup and managed updates."
         },
         {
-          "file": "3MWG4Q",
-          "quote": "Mobile data collection (continuous background screen monitoring, detailed UI events) is highly challenging and likely infeasible on non-jailbroken iOS/Android."
+          "file": "OPU74P",
+          "quote": "Monetization: Justifying subscriptions for local-first software; funding open-source."
         }
       ],
       "mitigation": [
-        "Redefine the role of the mobile client to focus on user-initiated inputs (Share Button, cloud folder monitoring) and querying the home server.",
-        "Explore app-specific integrations and notification capture for contextual snippets, with explicit user permission.",
-        "Prioritize desktop functionality for the MVP and defer complex mobile integration to later phases, or manage scope by focusing on mobile as a 'remote control' rather than a data source.",
-        "Clearly communicate mobile limitations to users to manage expectations."
+        "Clearly articulate the value proposition of paid 'convenience' features, emphasizing time-savings, enhanced experience, and access to managed services like secure remote access.",
+        "Offer a one-time purchase option to address concerns about future price increases or service discontinuation.",
+        "Diversify revenue streams beyond subscriptions, including a plugin marketplace commission and professional services.",
+        "Actively engage with the open-source community to explain the necessity of commercialization for sustainable development."
       ],
-      "confidence": 0.9
+      "confidence": 0.75
     }
   ]
 }

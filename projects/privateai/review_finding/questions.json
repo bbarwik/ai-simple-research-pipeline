@@ -2,81 +2,81 @@
   "questions": [
     {
       "id": "Q1",
-      "question": "What specific open-source licensing model will be used to restrict commercial use while fostering community contributions, and how will it be enforced?",
-      "rationale": "The project intends to be open-source but free only for non-commercial use, with dual licensing as a possibility. The specific open-source license needs to be carefully chosen to allow this restriction, given that most conventional open-source licenses permit commercial use. The enforceability of such a model is crucial for the revenue strategy.",
-      "expected_signal": "A clear, legally sound, and viable licensing strategy (e.g., AGPL for core, commercial license for paid features, or BSL) that balances open-source values with the need for sustainable commercialization, alongside a plan for how new contributors will assign their rights to their contributions.",
+      "question": "What is the specific open-source license intended for the core project, and how will it legally enforce the 'non-commercial use only' restriction, allowing for commercial monetization strategies?",
+      "rationale": "The project explicitly states the open-source version will be 'free for private, non-commercial use only' to prevent unauthorized commercial use but grow the project. However, the choice of license to achieve this while maintaining a truly open-source ethos is critical for legal compliance, community perception, and the commercial business model's viability. This requires careful legal consideration, as many traditional open-source licenses do not easily permit such restrictions.",
+      "expected_signal": "A clear articulation of the chosen open-source license (e.g., AGPL, SSPL, or a custom license) and a legal strategy for enforcing the non-commercial clause, along with examples of other successful projects that have used a similar dual-licensing or tiered open-source model.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "The intention is for the open-source version to be free for private, non-commercial use only. Hobbyists can use it for free under these conditions. The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
+          "file": "FS5HHF",
+          "quote": "The intention is for the open-source version to be free for private, non-commercial use only. Hobbyists can use it for free under these conditions."
         },
         {
-          "file": "initial_summary.json",
-          "quote": "The specific open-source license that allows restriction for non-commercial use is yet to be determined."
+          "file": "FS5HHF",
+          "quote": "The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
         }
       ]
     },
     {
       "id": "Q2",
-      "question": "What definitive 'Aha!' moment and core feature set will be included in the Minimum Viable Product (MVP) to drive initial user engagement and validate the concept?",
-      "rationale": "The document states that the MVP's precise feature set is still to be finalized, but mentions core desktop data capture, AI-powered Q&A, and basic task organization. It also notes that browser automation, full mobile app support, and comprehensive Linux/Windows support may be deferred. A clear, compelling MVP is critical for early user adoption, investor validation, and managing scope.",
-      "expected_signal": "A concrete, prioritized list of MVP features that clearly demonstrates the core value proposition (e.g., 'answer questions about my personal data from the last week through conversational AI on my local machine') and a phased rollout plan that details what will be available on which platforms.",
+      "question": "Given the founder's preference to focus on R&D rather than management, what is the concrete plan to recruit an experienced CTO or dedicated People Manager/Team Lead immediately post-funding to manage the growing team and operational aspects?",
+      "rationale": "The founder, while visionary, explicitly states a preference for R&D and disinterest in people management. Scaling a company to 10,000 users and $250k MRR requires strong leadership beyond technical R&D, particularly in team management, operational efficiency, and potentially external technical representation. Not having this role clearly filled or a plan to recruit it quickly can bottleneck growth and operational execution.",
+      "expected_signal": "A detailed recruitment plan for a CTO and/or dedicated People Manager, including target profiles, proposed compensation (e.g., equity), and a timeline for their integration into the team. Evidence of outreach or initial conversations would be positive.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "The precise feature set for the MVP is still to be finalized but will revolve around these core value propositions."
+          "file": "FS5HHF",
+          "quote": "Bartosz (CTO) Role: Primary focus on R&D, developing new ideas and products. Prefers to avoid extensive people management associated with a CTO role in a larger company and is open to finding a replacement CTO after achieving a higher valuation because he wants to focus on R&D, not management."
         },
         {
-          "file": "initial_summary.json",
-          "quote": "The MVP's precise feature set is still to be finalized."
+          "file": "FS5HHF",
+          "quote": "People Manager / Team Lead: Required because the founder wishes to focus on technology rather than direct people management."
         }
       ]
     },
     {
       "id": "Q3",
-      "question": "How will PrivateAI ensure the security and privacy of user data, particularly concerning the plugin ecosystem, and what is the plan for external security audits?",
-      "rationale": "The document acknowledges the high-risk nature of local code execution for plugins and recommends WASM for sandboxing. However, even with WASM, there are risks with third-party plugins accessing sensitive user data. Ensuring robust data security and privacy, including plans for independent security audits, is paramount for a project whose core value proposition is privacy.",
-      "expected_signal": "A detailed security roadmap including commitment to WASM-based sandboxing, a clear permission model for plugins, processes for vetting third-party plugins, a plan for regular external security audits (pentesters/bug bounties), and a transparent vulnerability handling policy.",
+      "question": "What is the detailed strategy for user acquisition beyond 'target the technical community first' and 'collaborate with YouTubers,' specifically what marketing budget will be allocated for paid acquisition to reach the stated goal of 10,000 paying users within the first year?",
+      "rationale": "Achieving 10,000 paying users generating $250k MRR within a year is an aggressive target. While relying on organic growth from open-source and community engagement is valuable, it might not be sufficient for such rapid scaling. A clear understanding of the broader go-to-market strategy, including paid acquisition channels, budget allocation, and expected CAC (Customer Acquisition Cost), is crucial to evaluate the feasibility of these financial targets.",
+      "expected_signal": "A breakdown of initial marketing spend, specific channels beyond organic (e.g., AI/privacy-focused publications, developer platforms), expected KPIs for each channel, and a realistic customer acquisition cost model to support the user growth projections.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "Plugin System Security: Local compilation of Rust source is high-risk. Mitigation: Adopt WASM for sandboxed execution or, at least, signed pre-compiled binaries with a strong permission model."
+          "file": "OPU74P",
+          "quote": "Acquire 10,000 paying users within the first year."
         },
         {
-          "file": "3MWG4Q",
-          "quote": "Data Security (Even Locally): Software vulnerabilities or user misconfigurations can lead to breaches. Mitigation: Rigorous testing, user guidance on local security, transparent vulnerability policy."
+          "file": "FS5HHF",
+          "quote": "Target the technical community first (developers, privacy advocates, tech startups, web3 community), then expand to a more mainstream audience. Engage through open-source communities (GitHub, relevant forums like those discussed in the \"AI Second Brain Research_.pdf\"), privacy-focused forums, and content marketing tailored to specific professions. Organize collaborations with active members of online communities like Wykop (Polish social news site), Reddit, and Discord, with a particular focus on engaging students and hobbyists."
         }
       ]
     },
     {
       "id": "Q4",
-      "question": "What is the detailed strategy for managing data volume and processing continuous streams of personal data (e.g., per-second screenshots) locally on user hardware?",
-      "rationale": "The vision includes collecting massive amounts of data, such as 'per-second screenshots,' which will generate enormous data volumes. Managing this locally requires sophisticated data lifecycle management, highly efficient storage (deduplication), and robust processing capabilities, which can quickly overwhelm consumer hardware if not superbly optimized.",
-      "expected_signal": "A comprehensive strategy including specific technologies for block-level content-defined chunking (CDC) deduplication, automated data archival policies, configurable user controls for data retention/deletion, and detailed resource management plans (e.g., scheduled processing during idle times, graceful degradation strategies).",
+      "question": "What core ethical guidelines and formal boundaries will be defined and implemented for data handling and AI behavior to prevent misuse of the technology and address potential liability for AI errors?",
+      "rationale": "The project aims to process highly personal and sensitive data ('full spectrum of your digital life'). Without clear ethical boundaries and formalized oversight, there's a significant risk of misuse (e.g., surveillance), privacy breaches, or adverse consequences from incorrect AI outputs. The document notes 'Ethical Boundaries for Data Handling: TODO - This needs to be formally defined and decided upon later,' indicating a critical missing piece of the strategy that needs to be addressed early in development.",
+      "expected_signal": "A proposed framework for ethical AI, including principles guiding data collection, processing, and output. Mechanisms for user consent, data redaction, data deletion, and AI output verification. Consideration of appointing an ethics board or similar oversight as the project scales.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "Data Lifecycle & Overflow Management: Given the high volume of data from continuous collection (e.g., per-second screenshots), strategies are needed for managing storage capacity and processing power."
+          "file": "FS5HHF",
+          "quote": "Ethical Boundaries for Data Handling: TODO - This needs to be formally defined and decided upon later."
         },
         {
-          "file": "3MWG4Q",
-          "quote": "Data Deduplication: The database system should assist in managing duplicated data from various sources. This is crucial for storage saving and AI data quality (reducing noise for RAG). Techniques: Compression, Specialized Databases, File-Level Deduplication, Block-Level Deduplication (Fixed or Variable Size), Content-Defined Chunking (CDC)."
+          "file": "FS5HHF",
+          "quote": "Misuse of Technology: Potential for surveillance if misused. Mitigation: Clear ToS, ethical guidelines, design for transparency in shared contexts."
         }
       ]
     },
     {
       "id": "Q5",
-      "question": "How will the team mitigate the significant challenges of talent acquisition for specialized AI and engineering roles, given the current scarcity and high cost of such talent?",
-      "rationale": "The success of PrivateAI heavily depends on attracting top-tier talent in AI, Rust, and systems engineering. The document acknowledges that specialized skills are scarce and expensive. A robust strategy beyond just offering ESOPs is needed to build and retain a high-performing team capable of delivering on the ambitious technical vision.",
-      "expected_signal": "A detailed recruitment plan including specific channels and targeted hiring strategies (e.g., partnerships with universities, targeted headhunting, strong employer branding, active participation in relevant open-source communities), competitive compensation & benefits package, clear career progression paths, and strategies for fostering a unique company culture that attracts and retains talent.",
+      "question": "How will the project ensure genuine cross-platform usability and support for data collection beyond macOS, given the initial focus on macOS and the acknowledged challenges for Windows/Linux desktop and mobile platforms?",
+      "rationale": "While the MVP focuses on macOS, the vision targets a broad audience and global market. Desktop data collection (screen, audio, etc.) has OS-specific implementations. The document mentions that 'Browser automation and support for Linux/Windows might also be deferred from the absolute initial MVP.' Deferring these could delay market penetration and limit addressable market size, especially if global expansion is a key strategy.",
+      "expected_signal": "A detailed plan for phasing in Windows and Linux desktop support, including resource allocation and timelines. Clarification on how cross-platform consistency in data collection and user experience will be maintained across different operating systems and devices, especially regarding challenging aspects like screen/audio capture.",
       "evidence": [
         {
-          "file": "3MWG4Q",
-          "quote": "Talent Acquisition: Specialized skills are scarce and expensive. Mitigation: Strong culture, compelling challenges, OS community engagement."
+          "file": "FS5HHF",
+          "quote": "Our initial target is the macOS platform, expanding from there."
         },
         {
-          "file": "3MWG4Q",
-          "quote": "Recruitment Strategy: Co-founders, once on board, will assist with talent acquisition. More strategic ideas are needed in this domain. A significant Employee Stock Option Plan (ESOP) is crucial."
+          "file": "FS5HHF",
+          "quote": "Cross-Platform Development: OS-specific implementations needed for data collection."
         }
       ]
     }

@@ -1,0 +1,48 @@
+services:
+  # Prefect Server
+  prefect-server:
+    image: prefecthq/prefect:3-latest
+    command: prefect server start --host 0.0.0.0 --port 4200
+    expose:
+      - "4200"  # Only expose within network
+    environment:
+      PREFECT_SERVER_API_HOST: 0.0.0.0
+      PREFECT_SERVER_API_PORT: 4200
+    networks:
+      - prefect-network
+    volumes:
+      - prefect-data:/root/.prefect
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "python3 -c \"import sys,requests; sys.exit(0 if requests.get('http://localhost:4200/api/health', timeout=2).json() is True else 1)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  # Worker service that runs the deployment
+  ai-pipeline-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      prefect-server:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      PREFECT_API_URL: http://prefect-server:4200/api
+      GCS_SERVICE_ACCOUNT_FILE: /app/key.json
+    volumes:
+      - ./key.json:/app/key.json:ro
+      - ./projects:/app/projects
+    networks:
+      - prefect-network
+    restart: unless-stopped
+
+networks:
+  prefect-network:
+    driver: bridge
+
+volumes:
+  prefect-data:
