@@ -1,0 +1,84 @@
+{
+  "questions": [
+    {
+      "id": "Q1",
+      "question": "What specific open-source licensing model will be used to restrict commercial use while fostering community contributions, and how will it be enforced?",
+      "rationale": "The project intends to be open-source but free only for non-commercial use, with dual licensing as a possibility. The specific open-source license needs to be carefully chosen to allow this restriction, given that most conventional open-source licenses permit commercial use. The enforceability of such a model is crucial for the revenue strategy.",
+      "expected_signal": "A clear, legally sound, and viable licensing strategy (e.g., AGPL for core, commercial license for paid features, or BSL) that balances open-source values with the need for sustainable commercialization, alongside a plan for how new contributors will assign their rights to their contributions.",
+      "evidence": [
+        {
+          "file": "3MWG4Q",
+          "quote": "The intention is for the open-source version to be free for private, non-commercial use only. Hobbyists can use it for free under these conditions. The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
+        },
+        {
+          "file": "initial_summary.json",
+          "quote": "The specific open-source license that allows restriction for non-commercial use is yet to be determined."
+        }
+      ]
+    },
+    {
+      "id": "Q2",
+      "question": "What definitive 'Aha!' moment and core feature set will be included in the Minimum Viable Product (MVP) to drive initial user engagement and validate the concept?",
+      "rationale": "The document states that the MVP's precise feature set is still to be finalized, but mentions core desktop data capture, AI-powered Q&A, and basic task organization. It also notes that browser automation, full mobile app support, and comprehensive Linux/Windows support may be deferred. A clear, compelling MVP is critical for early user adoption, investor validation, and managing scope.",
+      "expected_signal": "A concrete, prioritized list of MVP features that clearly demonstrates the core value proposition (e.g., 'answer questions about my personal data from the last week through conversational AI on my local machine') and a phased rollout plan that details what will be available on which platforms.",
+      "evidence": [
+        {
+          "file": "3MWG4Q",
+          "quote": "The precise feature set for the MVP is still to be finalized but will revolve around these core value propositions."
+        },
+        {
+          "file": "initial_summary.json",
+          "quote": "The MVP's precise feature set is still to be finalized."
+        }
+      ]
+    },
+    {
+      "id": "Q3",
+      "question": "How will PrivateAI ensure the security and privacy of user data, particularly concerning the plugin ecosystem, and what is the plan for external security audits?",
+      "rationale": "The document acknowledges the high-risk nature of local code execution for plugins and recommends WASM for sandboxing. However, even with WASM, there are risks with third-party plugins accessing sensitive user data. Ensuring robust data security and privacy, including plans for independent security audits, is paramount for a project whose core value proposition is privacy.",
+      "expected_signal": "A detailed security roadmap including commitment to WASM-based sandboxing, a clear permission model for plugins, processes for vetting third-party plugins, a plan for regular external security audits (pentesters/bug bounties), and a transparent vulnerability handling policy.",
+      "evidence": [
+        {
+          "file": "3MWG4Q",
+          "quote": "Plugin System Security: Local compilation of Rust source is high-risk. Mitigation: Adopt WASM for sandboxed execution or, at least, signed pre-compiled binaries with a strong permission model."
+        },
+        {
+          "file": "3MWG4Q",
+          "quote": "Data Security (Even Locally): Software vulnerabilities or user misconfigurations can lead to breaches. Mitigation: Rigorous testing, user guidance on local security, transparent vulnerability policy."
+        }
+      ]
+    },
+    {
+      "id": "Q4",
+      "question": "What is the detailed strategy for managing data volume and processing continuous streams of personal data (e.g., per-second screenshots) locally on user hardware?",
+      "rationale": "The vision includes collecting massive amounts of data, such as 'per-second screenshots,' which will generate enormous data volumes. Managing this locally requires sophisticated data lifecycle management, highly efficient storage (deduplication), and robust processing capabilities, which can quickly overwhelm consumer hardware if not superbly optimized.",
+      "expected_signal": "A comprehensive strategy including specific technologies for block-level content-defined chunking (CDC) deduplication, automated data archival policies, configurable user controls for data retention/deletion, and detailed resource management plans (e.g., scheduled processing during idle times, graceful degradation strategies).",
+      "evidence": [
+        {
+          "file": "3MWG4Q",
+          "quote": "Data Lifecycle & Overflow Management: Given the high volume of data from continuous collection (e.g., per-second screenshots), strategies are needed for managing storage capacity and processing power."
+        },
+        {
+          "file": "3MWG4Q",
+          "quote": "Data Deduplication: The database system should assist in managing duplicated data from various sources. This is crucial for storage saving and AI data quality (reducing noise for RAG). Techniques: Compression, Specialized Databases, File-Level Deduplication, Block-Level Deduplication (Fixed or Variable Size), Content-Defined Chunking (CDC)."
+        }
+      ]
+    },
+    {
+      "id": "Q5",
+      "question": "How will the team mitigate the significant challenges of talent acquisition for specialized AI and engineering roles, given the current scarcity and high cost of such talent?",
+      "rationale": "The success of PrivateAI heavily depends on attracting top-tier talent in AI, Rust, and systems engineering. The document acknowledges that specialized skills are scarce and expensive. A robust strategy beyond just offering ESOPs is needed to build and retain a high-performing team capable of delivering on the ambitious technical vision.",
+      "expected_signal": "A detailed recruitment plan including specific channels and targeted hiring strategies (e.g., partnerships with universities, targeted headhunting, strong employer branding, active participation in relevant open-source communities), competitive compensation & benefits package, clear career progression paths, and strategies for fostering a unique company culture that attracts and retains talent.",
+      "evidence": [
+        {
+          "file": "3MWG4Q",
+          "quote": "Talent Acquisition: Specialized skills are scarce and expensive. Mitigation: Strong culture, compelling challenges, OS community engagement."
+        },
+        {
+          "file": "3MWG4Q",
+          "quote": "Recruitment Strategy: Co-founders, once on board, will assist with talent acquisition. More strategic ideas are needed in this domain. A significant Employee Stock Option Plan (ESOP) is crucial."
+        }
+      ]
+    }
+  ]
+}

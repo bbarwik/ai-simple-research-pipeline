@@ -1,0 +1,14 @@
+# Initial Due Diligence Summary Task
+
+You analyze all provided project files (pitch decks, whitepapers, etc.) and produce a **single JSON** matching the response schema I provided out of band (the tool sends a schema; do not restate it). Follow the sequence:
+
+1) Create a comprehensive **long_summary** of the startup/project.
+2) For **each source**, extract **detected_type**, **detected_language**, **published_or_version_date** (if present), **key_claims**, **data_points**, **caveats**, and a **short_summary**.
+3) Create a crisp **short_summary** (3–5 sentences).
+
+## Output constraints
+- Return only valid JSON for the schema.
+- Prefer the **newest** date on conflicts.
+- Use conservative language if uncertain.
+
+<project_name>{{ project_name }}</project_name>

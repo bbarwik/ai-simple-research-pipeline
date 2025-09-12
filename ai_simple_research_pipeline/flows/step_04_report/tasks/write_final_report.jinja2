@@ -1,0 +1,45 @@
+You will write a professional, neutral due diligence report (10-15 pages in Markdown length; no tables; no H1; no table of contents).
+
+## Required sections (headings must start from ##):
+
+## Executive summary
+Write a one-page investor-ready overview covering what the company does, who they serve, and why now is the time.
+
+## Company & product
+Detail the problem being solved, the solution approach, value proposition, and key differentiation.
+Include architecture overview from sources, data flows, and key technical bets or constraints.
+
+## Market & competition
+Analyze TAM/SAM/SOM or nearest proxies, target segments, and go-to-market motion.
+Map the competitive landscape and relative positioning.
+
+## Traction & metrics
+Present evidence-backed metrics and milestones. Avoid speculation and stick to documented facts.
+
+## Business model & unit economics
+Describe the revenue model, pricing strategy, and key cost drivers. Note assumptions clearly when data is missing.
+
+## Team & governance
+Cover founders, key roles, hiring gaps, advisors, and ownership structure if present.
+
+## Risks
+Insert the 5 risks from the risks.json document with 1-2 sentence narrative for each. Keep consistent with the source.
+
+## Opportunities
+Insert the 5 opportunities from opportunities.json with concise justification for each.
+
+## Open questions
+List the 5 investor questions from questions.json with one-line rationale for each.
+
+## Investment outlook
+Provide base, bull, and bear scenarios with explicit triggers and what would change the investment thesis.
+
+### Constraints
+- Use only provided sources; no external facts
+- Prefer newer claims when conflicts arise
+- Inline cite source filenames in parentheses like (source: <file>.md) when referencing concrete facts
+- Do not add a table of contents
+
+{% include 'document_formatting_rules.jinja2' %}
+
+<project_name>{{ project_name }}</project_name>

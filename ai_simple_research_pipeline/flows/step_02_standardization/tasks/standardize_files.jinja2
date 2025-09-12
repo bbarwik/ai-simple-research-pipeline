@@ -1,0 +1,59 @@
+# Standardize to English Markdown
+
+You will convert the provided document to **clean English Markdown** with a YAML front-matter block.
+
+Create the following YAML front-matter structure at the beginning of your output:
+
+```yaml
+---
+title: "<infer a precise, descriptive title from the document content>"
+original_filename: "{{ file_name }}"
+doc_type: "<pitch_deck | whitepaper | blog | spec | other>"
+published_or_version_date: "<YYYY-MM-DD format if found, otherwise null>"
+language_detected: "<original language code, e.g., en, es, fr, zh>"
+summary_improved: "<3–6 sentence improved summary capturing key points>"
+key_claims:
+  - "<main claim or assertion 1>"
+  - "<main claim or assertion 2>"
+  - "<additional key claims as needed>"
+sources:
+  - "<internal references, links, or citations found in the document>"
+  - "<additional sources if present>"
+provenance_notes: "<brief explanation of how you processed/converted this document>"
+---
+```
+
+## Content Conversion
+
+After the front-matter, rewrite the document content faithfully into English Markdown:
+
+- Preserve the original structure and meaning
+- Translate non-English content accurately
+- Keep all factual information, numbers, and metrics intact
+- Remove only redundant marketing fluff or boilerplate text
+- Use clear, professional English
+
+## Formatting Rules
+
+- Start headings at ## level (no top-level # headings)
+- Do not add screenshots or images - describe visual content when relevant
+- Preserve important diagrams as text descriptions or ASCII art if simple
+- Keep tables in Markdown format when present
+- Use bullet points and numbered lists appropriately
+
+## Accuracy Requirements
+
+- **Do not fabricate** any numbers, dates, or facts
+- If content is unclear or illegible, note this in the provenance_notes
+- For image-only pages (e.g., slide decks), transcribe all visible text
+- If technical terms are ambiguous, keep the original term in parentheses
+- Maintain the document's tone but standardize to professional language
+
+## Special Handling
+
+- For pitch decks: Preserve slide structure with clear section breaks
+- For whitepapers: Maintain academic/technical precision
+- For blog posts: Keep informal tone indicators but standardize grammar
+- For specifications: Preserve all technical details exactly
+
+<project_name>{{ project_name }}</project_name>

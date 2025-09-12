@@ -1,0 +1,43 @@
+# Investment Review Task
+
+From the standardized English Markdown sources (with YAML front-matter) and the initial summary, conduct a comprehensive investment review.
+
+Produce exactly **5 risks**, **5 opportunities**, and **5 investor questions** using the predefined schema.
+
+## Requirements
+
+### Evidence Standards
+- Each item must cite **at least 2** evidence snippets from specific standardized files
+- Use exact quotes from the documents as evidence
+- Reference files by their standardized filename (e.g., "standardized/pitch-deck.md")
+
+### Quality Criteria
+- Prefer **recent** claims when conflicts exist
+- No duplication or overlap across items
+- Balanced coverage across the category taxonomy:
+  - tech, product, market, team, legal, finance
+  - go_to_market, competition, security, regulatory
+
+### Risk Analysis
+- Assess severity (low/medium/high) based on potential impact
+- Define horizon (short/medium/long) for when risk might materialize
+- Provide concrete mitigation strategies
+- Assign confidence level (0-1) based on evidence quality
+
+### Opportunity Assessment
+- Evaluate impact potential (moderate/high/transformational)
+- List prerequisites needed to realize the opportunity
+- Base confidence on evidence strength and market validation
+
+### Investor Questions
+- Frame questions to uncover critical unknowns
+- Provide clear rationale for why each question matters
+- Describe the expected signal that would be positive/negative
+
+## Output Format
+Return valid JSON matching the Findings schema with exactly:
+- 5 risks with full details
+- 5 opportunities with impact assessment
+- 5 questions with clear rationale
+
+<project_name>{{ project_name }}</project_name>

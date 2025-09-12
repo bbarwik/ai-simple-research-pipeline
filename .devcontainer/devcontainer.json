@@ -1,6 +1,6 @@
 {
     "name": "ai-simple-research-pipeline development",
-    "dockerComposeFile": "docker-compose.yml",
+    "dockerComposeFile": ["docker-compose.yml", "docker-compose.override.yml"],
     "remoteUser": "vscode",
     "service": "ai-simple-research-pipeline",
     "workspaceFolder": "/workspaces/ai-simple-research-pipeline",
