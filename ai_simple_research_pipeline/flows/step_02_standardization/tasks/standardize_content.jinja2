@@ -1,0 +1,44 @@
+# Standardize Document Content to English Markdown
+
+Convert the provided document to clean English Markdown format.
+
+## Content Conversion Requirements
+
+Rewrite the document content faithfully into English Markdown:
+- Preserve the original structure and meaning
+- Translate non-English content accurately
+- Keep all factual information, numbers, and metrics intact
+- Remove only redundant marketing fluff or boilerplate text
+- Use clear, professional English
+
+## Formatting Rules
+
+- Start headings at ## level (no top-level # headings)
+- Do not add screenshots or images - describe visual content when relevant
+- Preserve important diagrams as text descriptions or ASCII art if simple
+- Keep tables in Markdown format when present
+- Use bullet points and numbered lists appropriately
+
+## Accuracy Requirements
+
+- **Do not fabricate** any numbers, dates, or facts
+- If content is unclear or illegible, note this inline with [unclear: description]
+- For image-only pages (e.g., slide decks), transcribe all visible text
+- If technical terms are ambiguous, keep the original term in parentheses
+- Maintain the document's tone but standardize to professional language
+
+## Special Handling
+
+- For pitch decks: Preserve slide structure with clear section breaks
+- For whitepapers: Maintain academic/technical precision
+- For blog posts: Keep informal tone indicators but standardize grammar
+- For specifications: Preserve all technical details exactly
+
+## Context
+
+<project_name>{{ project_name }}</project_name>
+<original_filename>{{ file_name }}</original_filename>
+
+## Output Format
+
+Output the standardized content directly as clean Markdown, without any preamble or YAML front-matter.

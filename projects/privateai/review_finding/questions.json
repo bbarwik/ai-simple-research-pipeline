@@ -2,89 +2,81 @@
   "questions": [
     {
       "id": "Q1",
-      "question": "What is the detailed intellectual property strategy concerning patents, trademarks, and open-source licensing to protect the core technology and brand, especially when allowing local compilation of plugins?",
-      "rationale": "The project plans to be open-source but restrict commercial use, while licensing to local companies and allowing community contributions. This creates a complex IP landscape. Additionally, the initial idea of local compilation of Rust plugins, if not carefully managed (WASM is preferred as mitigation), adds complexity. A clear IP strategy is crucial to protect the core innovations, prevent unauthorized commercial exploitation, and manage legal risks associated with an open-source model combined with commercial aspirations.",
-      "expected_signal": "A clear legal framework for the dual-licensing model, outlining the chosen open-source license, how commercial restrictions will be enforced, and plans for patenting novel technical solutions (if any) to prevent competitors from copying key innovations. Concrete plans for trademarking the brand 'PrivateAI' and related names.",
+      "question": "Given the founder's preference to avoid extensive people management and focus on R&D, what specific plan is in place to appoint a strong operational leader (e.g., CEO or COO) to manage the growing team, business development, and day-to-day operations, especially as the company scales?",
+      "rationale": "The founder's stated preference for R&D over people management is a known trait for many technical founders. However, scaling a company, especially to achieve a $100M valuation and manage a team of ~10 people post-seed, requires strong operational leadership. Understanding the plan for filling this critical executive role is essential for assessing execution risk.",
+      "expected_signal": "A clear strategy for recruiting or empowering an operational co-founder or CEO, potentially with a timeline and identified candidate profiles. Evidence of successful delegation and a plan for talent acquisition (e.g., a strong People Manager / Team Lead role already being prioritized or filled).",
       "evidence": [
         {
-          "file": "X4ZU4W",
-          "quote": "The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
+          "file": "74ZX4W",
+          "quote": "Bartosz (CTO) Role: Focus on R&D, developing new ideas and products. Prefers to avoid extensive people management."
         },
         {
-          "file": "X4ZU4W",
-          "quote": "Legal & Regulatory Deep Dive: Conduct thorough research into GDPR, intellectual property (patents, project name), open-source licensing, and other relevant legal compliance issues with legal counsel."
+          "file": "74ZX4W",
+          "quote": "Key Roles Needed for MVP & Growth: ... People Manager / Team Lead: As the founder wishes to focus on technology."
         }
       ]
     },
     {
       "id": "Q2",
-      "question": "Given the founder's preference for R&D over management, what specific plan is in place for recruiting a People Manager/Team Lead and a replacement CTO as the company scales to ensure effective team leadership and operational management?",
-      "rationale": "The founder's desire to focus on R&D is a strength for innovation but poses a risk to management and operational scaling. Having a clear plan for bringing in leadership capable of managing a growing team is crucial for the company's long-term success and to prevent potential bottlenecks in execution.",
-      "expected_signal": "A detailed recruitment roadmap for management roles, including desired profiles, timelines, and how the ESOP will be leveraged to attract top talent. Clarity on how responsibilities will transition and overlap during the initial growth phase.",
+      "question": "How will PrivateAI validate the 'broader market pain' beyond the tech-savvy niche, and what specific go-to-market adjustments or product simplifications are planned to attract and retain mainstream users who might perceive the local-first approach as too complex?",
+      "rationale": "The document acknowledges that 'Evidence for broader market pain beyond the tech-savvy niche needs further validation.' This is a critical market risk as scaling beyond early adopters requires addressing the needs and comfort levels of a wider audience. Understanding the strategy to bridge this gap is crucial for market penetration.",
+      "expected_signal": "Demonstrated market research or user studies on mainstream users' pain points and willingness to adopt local AI. Concrete plans for simplifying installation/setup, a 'plug-and-play' hardware offering, or tiered feature sets that gradually introduce complexity. A refined messaging strategy for the mainstream.",
       "evidence": [
         {
-          "file": "X4ZU4W",
-          "quote": "Bartosz (CTO) Role: Primary focus on R&D, developing new ideas and products. Prefers to avoid extensive people management associated with a CTO role in a larger company and is open to finding a replacement CTO after achieving a higher valuation because he wants to focus on R&D, not management."
+          "file": "PI7DJV",
+          "quote": "Evidence for broader market pain beyond the tech-savvy niche needs further validation."
         },
         {
-          "file": "X4ZU4W",
-          "quote": "People Manager / Team Lead: Required because the founder wishes to focus on technology rather than direct people management."
+          "file": "74ZX4W",
+          "quote": "Niche vs. Mainstream Appeal: System complexity and local server requirement might limit initial appeal."
         }
       ]
     },
     {
       "id": "Q3",
-      "question": "What specific strategies will be implemented to attract and retain the initial 10,000 paying users and achieve the $250k+ monthly recurring revenue target within the first year post-launch?",
-      "rationale": "The targets for user acquisition and monthly recurring revenue are ambitious for a new open-source, local-first product. While initial target segments are identified, a concrete, actionable go-to-market strategy for conversion to paid users and sustained revenue generation is critical for proving market fit and securing future funding rounds.",
-      "expected_signal": "A detailed step-by-step go-to-market plan outlining specific marketing channels, conversion funnels for user acquisition, pricing strategies to encourage sign-ups, and customer retention mechanisms to ensure recurring revenue. Evidence of early traction or strong interest from target communities would be a positive signal.",
+      "question": "What is the detailed ",
+      "rationale": "The document states a target of $100 million valuation and 10,000 paying users within the first year, alongside generating $250,000 USD in monthly recurring revenue. However, it also notes that the precise feature set for the MVP and defining the 'Aha!' moment is still to be finalized. A clear, detailed roadmap is crucial for investors to understand the path to these aggressive targets.",
+      "expected_signal": "A finalized, granular MVP feature list with timelines, explicitly defining the core 'Aha!' moment. Detailed go-to-market tactics for achieving the first 10,000 paying users and the target MRR, including specific marketing channels, partnerships, and conversion funnels.",
       "evidence": [
         {
-          "file": "X4ZU4W",
-          "quote": "Acquire 10,000 paying users within the first year."
+          "file": "QSW4ZB",
+          "quote": "Targeted $100 million valuation."
         },
         {
-          "file": "X4ZU4W",
-          "quote": "Generate $250,000 USD in monthly recurring revenue."
-        },
-        {
-          "file": "X4ZU4W",
-          "quote": "Target the technical community first (developers, privacy advocates, tech startups, web3 community), then expand to a more mainstream audience."
+          "file": "QSW4ZB",
+          "quote": "The 'Aha!' moment for MVP is still to be fully finalized."
         }
       ]
     },
     {
       "id": "Q4",
-      "question": "How will the project ensure the long-term feasibility and cost-effectiveness of running powerful AI models locally, considering their current resource intensity and the rapid pace of hardware and model evolution?",
-      "rationale": "The core promise of local-first AI hinges on the ability to run powerful models on user-owned hardware. While models are becoming more efficient, current requirements are still high. A strategy for continuous optimization, adaptation to new models, and managing user expectations regarding hardware investments is crucial.",
-      "expected_signal": "A concrete strategy for model updates (download, resource allocation, compatibility), an analysis of anticipated hardware cost reductions (e.g., 10x mentioned over 2-3 years) and how this aligns with user accessibility, and a plan for supporting a range of hardware configurations without degrading the core experience.",
+      "question": "Given the legal and ethical complexities of private data handling, especially across international borders and with features like 'privacy-preserving cloud processing', what specific legal counsel and framework (e.g., GDPR compliance, ethical boundaries) will be implemented from day one to ensure full regulatory compliance and user trust?",
+      "rationale": "The project promises unparalleled privacy but also mentions optional features like cloud processing and targeting diverse regions (EU, Arab countries, China) with varying data regulations. The document notes that 'Ethical Boundaries for Data Handling needs to be formally defined and decided upon later.' Without a robust legal and ethical framework established early, the project faces significant regulatory risks and could undermine user trust, which is its core value proposition.",
+      "expected_signal": "A detailed plan for engaging specialized legal counsel (e.g., data privacy lawyers familiar with GDPR and international laws). A formal definition of 'Ethical Boundaries for Data Handling' and a roadmap for its implementation. Evidence of planned privacy by design principles, data residency compliance strategies for cloud offerings, and robust, GDPR-compliant consent mechanisms.",
       "evidence": [
         {
-          "file": "X4ZU4W",
-          "quote": "The 7B/8B Qwen2.5-VL models require approximately 24GB VRAM and 32GB system RAM. The 32B version would need a Mac M-series with at least 32GB RAM (64GB recommended) and over 60GB of storage. These are significant hardware considerations for local deployment."
+          "file": "QSW4ZB",
+          "quote": "Ethical Boundaries for Data Handling needs to be formally defined and decided upon later."
         },
         {
-          "file": "X4ZU4W",
-          "quote": "The cost of AI-capable hardware and running AI models is expected to decrease significantly (potentially 10x) over the next 2-3 years, which will positively impact the project's operational costs and the feasibility of running more powerful models locally."
+          "file": "74ZX4W",
+          "quote": "Privacy-Preserving Cloud Processing (Optional Feature): A feature to identify and redact private/confidential information before sending data to cloud-based AI models."
         }
       ]
     },
     {
       "id": "Q5",
-      "question": "What is the detailed plan for establishing, nurturing, and monetizing the plugin ecosystem, including developer tools, community engagement, and ensuring a healthy marketplace?",
-      "rationale": "A robust plugin ecosystem is central to PrivateAI's extensibility and long-term value. The success of this ecosystem depends on attracting developers, providing secure and easy-to-use tools, and creating a fair monetization model. Details are needed beyond charging a 10-20% commission.",
-      "expected_signal": "Specific plans for a Software Development Kit (SDK) or API for plugins, a developer onboarding process, strategies for community engagement (hackathons, forums, bounties), and clear policies for plugin vetting, security, and dispute resolution within the marketplace. Evidence of outreach to potential plugin developers.",
+      "question": "How will PrivateAI address the technical challenge of comprehensive, continuous data collection from smartphones, given the acknowledged 'strict OS-level restrictions' and the ambitious goal of capturing a user's 'entire digital life'?",
+      "rationale": "The ability to capture a user's 'entire digital life' is central to PrivateAI's value proposition, yet the document explicitly states that full background screen monitoring on smartphones is challenging due to OS restrictions. This represents a significant technical hurdle for mobile integration, which is crucial for a complete 'second brain' experience. Understanding how this core technical limitation will be overcome or strategically navigated is vital.",
+      "expected_signal": "A concrete technical roadmap for mobile data capture that moves beyond user-initiated actions and cloud folder monitoring. This might involve exploring more advanced (but still privacy-compliant) OS-level integrations, foreground app capture focus, or specific partnerships. A clear definition of how the 'entire digital life' claim will apply to mobile, given these constraints.",
       "evidence": [
         {
-          "file": "X4ZU4W",
-          "quote": "Community Building Strategy: TODO - \"I don't know yet.\" Requires DevRel role."
+          "file": "74ZX4W",
+          "quote": "A. Data Collection from Smartphones (Current Approach & Limitations): Initial Scope is Limited: Full background screen monitoring is challenging due to strict OS-level restrictions."
         },
         {
-          "file": "X4ZU4W",
-          "quote": "Plugin & Extension Marketplace Revenue: A commission of 10-20% will be charged on sales of third-party plugins and extensions through the marketplace. PrivateAI may also develop and sell its own premium, proprietary plugins or features."
-        },
-        {
-          "file": "X4ZU4W",
-          "quote": "Develop the initial secure plugin mechanism (e.g., WASM)."
+          "file": "74ZX4W",
+          "quote": "Amplify Your Memory & Knowledge: Effortlessly recall any information you've encountered \u2013 articles, meeting key points, or specific project details."
         }
       ]
     }

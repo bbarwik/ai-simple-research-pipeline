@@ -1,0 +1,49 @@
+title: 'PrivateAI: Your Truly Personal AI Second Brain'
+original_filename: privateai_project_description.pdf
+doc_type: pitch_deck
+published_or_version_date:
+language_detected: en
+summary_improved: PrivateAI is an ambitious open-source project to build the
+  first user-friendly, "second brain" AI that runs entirely on local hardware.
+  It aims to intelligently capture, organize, and leverage a user's entire
+  digital life to provide personalized insights and automation, ensuring
+  complete privacy and user control.  The project emphasizes a local-first AI
+  processing approach, a modular plugin system for extensibility, and a
+  user-friendly interface.  Key functionalities include memory amplification,
+  digital chore automation, personalized insights, research acceleration, and
+  digital life organization.  The go-to-market strategy focuses on early
+  adopters and expands to mainstream users, with a business model based on paid
+  convenience features, a plugin marketplace, and enterprise services, all while
+  maintaining a free core.
+key_claims:
+- PrivateAI is building the first user-friendly, open-source "second brain" that
+  runs entirely on local hardware.
+- The system intelligently captures and organizes digital life – from documents
+  to conversations – providing personalized insights and automation, all while
+  ensuring data never leaves user control.
+- PrivateAI aims to reclaim digital life intelligently and privately, solving
+  the problem of fragmented and insecure personal data.
+- The project is a groundbreaking initiative to build a "Truly Personal AI
+  Second Brain" that resides on the user's computer or a private server.
+- PrivateAI offers unparalleled personalization, user control, and extensibility
+  through an open-source, plugin-based architecture.
+- Key functionalities include amplifying memory, automating digital chores,
+  providing personalized insights, supercharging research and learning, and
+  organizing digital life.
+- The strategy involves comprehensive data integration via modular plugins,
+  local-first AI processing, and user-friendly design.
+- The business model includes a free open-source core, with paid "convenience"
+  features, managed updates, mobile apps, a curated plugin marketplace, and
+  optional cloud processing for revenue.
+- The MVP will focus on core desktop functionalities like capturing key data,
+  AI-powered Q&A, and basic task organization, targeting macOS first.
+- Security and privacy are maintained through local data processing, strong
+  encryption, and granular user control over data access and processing.
+sources:
+- Al Second Brain Research_.pdf
+- Node-RED
+provenance_notes: The document was processed by a multimodal AI model,
+  extracting text from the provided PDF and structuring it into JSON format
+  based on the specified schema. The extracted information includes inferred
+  title, document type classification, language detection, summary generation,
+  key claim extraction, and identification of internal references.

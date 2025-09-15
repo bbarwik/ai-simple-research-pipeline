@@ -2,7 +2,11 @@ from ai_pipeline_core import FlowDocument
 
 
 class StandardizedFileDocument(FlowDocument):
-    """English Markdown version of a single source with YAML front-matter.
+    """Standardized document with separate metadata and content files.
 
-    Filenames are dynamic (slugged), so no FILES enum.
+    Generates two files per source document:
+    - {slug}.yaml: Structured metadata
+    - {slug}.md: Clean English markdown content
+
+    Filenames are dynamic (slugged from source), so no FILES enum.
     """

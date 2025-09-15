@@ -1,3 +1,5 @@
+import asyncio
+
 from ai_pipeline_core import DocumentList, FlowConfig, pipeline_flow
 
 from ai_simple_research_pipeline.documents.flow import (
@@ -7,7 +9,7 @@ from ai_simple_research_pipeline.documents.flow import (
 )
 from ai_simple_research_pipeline.flow_options import ProjectFlowOptions
 
-from .tasks import standardize_files
+from .tasks import extract_metadata, standardize_content
 
 
 class StandardizationFlowConfig(FlowConfig):
@@ -37,14 +39,27 @@ async def standardization_flow(
     """
     # Get input documents
     inputs = documents.filter_by(UserInputDocument)
-    initial_summary = documents.get_by(InitialSummaryDocument)
+    initial_summary = documents.get_by(InitialSummaryDocument.FILES.INITIAL_SUMMARY)
 
-    # Process all files, converting to standardized Markdown
-    std_docs = await standardize_files(
-        input_documents=inputs,
-        initial_summary=initial_summary,
-        model=flow_options.small_model,
-        project_name=project_name,
-    )
+    # Process all files in parallel batches
+    results: list[StandardizedFileDocument] = []
+    for doc in inputs:
+        # Extract metadata and standardize content in parallel for each document
+        metadata, content = await asyncio.gather(
+            extract_metadata(
+                document=doc,
+                initial_summary=initial_summary,
+                model=flow_options.small_model,
+                project_name=project_name,
+            ),
+            standardize_content(
+                document=doc,
+                metadata=initial_summary,  # Use initial summary as context for now
+                model=flow_options.small_model,
+                project_name=project_name,
+            ),
+        )
+        results.extend([metadata, content])
 
-    return StandardizationFlowConfig.create_and_validate_output(std_docs)
+    # Return validated output
+    return StandardizationFlowConfig.create_and_validate_output(results)

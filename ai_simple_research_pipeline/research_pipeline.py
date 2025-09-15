@@ -114,13 +114,13 @@ class StatusWebhookHook:
         )
 
 
-@flow(name="research_pipeline", flow_run_name="research_pipeline-{project_name}")
+@flow(name="research_pipeline", flow_run_name="research_pipeline-{project_name}", log_prints=True)
 @trace(name="research_pipeline")
 async def research_pipeline(project_name: str, documents: str, flow_options: ProjectFlowOptions):
     if not documents:
         base = re.sub(r"[^a-z0-9-]", "-", project_name.lower()).strip("-") or "project"
-        random_suffix = "".join(random.choices(string.ascii_letters + string.digits, k=6))
-        bucket = f"{base[:40]}-{datetime.now().strftime('%y-%m-%d')}-{random_suffix}"
+        random_suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
+        bucket = f"{base[:30]}-{datetime.now().strftime('%y-%m-%d')}-{random_suffix}"
         storage = GcsStorage(bucket)
         await storage.create_bucket()
         documents = storage.url_for("")
@@ -148,7 +148,6 @@ async def research_pipeline(project_name: str, documents: str, flow_options: Pro
         pipeline_flow_fn = pipeline_flow.with_options(
             retries=3,
             retry_delay_seconds=60,
-            log_prints=True,
             on_completion=[status_hook],
             on_failure=[status_hook],
             on_cancellation=[status_hook],
@@ -174,12 +173,15 @@ if __name__ == "__main__":
         base, srv, thread = start_test_http_server(
             port=8000,
             inputs_dir="projects/privateai/user_input",
-            outputs_dir="projects/privateai/http_server_outputs",
+            outputs_dir="projects/http_server_outputs",
         )
         opts = ProjectFlowOptions(
             input_documents_urls=[f"{base}/inputs/privateai_project_description.pdf"],
             output_documents_urls={
-                "final_report.md": f"{base}/outputs/final_report.md",
+                "full_report.md": f"{base}/outputs/full_report.md",
+                "short_report.md": f"{base}/outputs/short_report.md",
+                "short_description.md": f"{base}/outputs/short_description.md",
+                "long_description.md": f"{base}/outputs/long_description.md",
                 "initial_summary.json": f"{base}/outputs/initial_summary.json",
             },
             # Webhooks go to our server too

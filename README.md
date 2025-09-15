@@ -150,10 +150,17 @@ All pipeline outputs (initial_summary, standardized_file, review_finding, final_
 
 ## Pipeline Stages
 
-1. **Summary** (Flow 1): Analyzes all input documents to create an initial summary with key claims, data points, and per-source descriptions
-2. **Standardization** (Flow 2): Converts each document to English Markdown with structured YAML front-matter
+1. **Summary** (Flow 1): Analyzes all input documents to create:
+   - Initial structured summary (JSON)
+   - Short description (50-100 words)
+   - Long description (500-1000 words)
+2. **Standardization** (Flow 2): Converts each document to:
+   - Structured metadata (YAML)
+   - Clean English content (Markdown)
 3. **Review** (Flow 3): Identifies 5 risks, 5 opportunities, and 5 investor questions with evidence citations
-4. **Report** (Flow 4): Generates a comprehensive 10-15 page due diligence report
+4. **Report** (Flow 4): Generates:
+   - Full report (15-20 pages comprehensive due diligence)
+   - Short report (5 pages executive summary)
 
 ### Performance
 
@@ -170,16 +177,20 @@ The pipeline processes documents efficiently with typical execution times:
 projects/my_project/
 ├── user_input/                    # Your input documents (pitch decks, whitepapers, etc.)
 │   └── *.pdf, *.docx, etc.
-├── initial_summary/               # Initial summary from Flow 1
-│   └── initial_summary.json
-├── standardized_file/             # English Markdown versions from Flow 2
-│   └── *.md
+├── initial_summary/               # Initial analysis from Flow 1
+│   ├── initial_summary.json      # Structured summary
+│   ├── short_description.md      # 50-100 word description
+│   └── long_description.md       # 500-1000 word description
+├── standardized_file/             # Standardized documents from Flow 2
+│   ├── {slug}.yaml               # Metadata for each document
+│   └── {slug}.md                 # Content for each document
 ├── review_finding/                # Structured findings from Flow 3
 │   ├── risks.json
 │   ├── opportunities.json
 │   └── questions.json
-└── final_report/                  # Final due diligence report from Flow 4
-    └── final_report.md
+└── final_report/                  # Due diligence reports from Flow 4
+    ├── full_report.md            # 15-20 page comprehensive report
+    └── short_report.md           # 5 page executive summary
 ```
 
 Note: The framework automatically creates output directories based on document types. Document names cannot contain path separators.
@@ -229,21 +240,29 @@ ai_simple_research_pipeline/
 ├── documents/                      # Document type definitions
 │   ├── flow/                       # Flow documents (persistent across flows)
 │   │   ├── user_input_document.py
-│   │   ├── initial_summary_document.py
-│   │   ├── standardized_file_document.py
-│   │   ├── findings_document.py
-│   │   └── final_report_document.py
+│   │   ├── initial_summary_document.py  # Summary + descriptions
+│   │   ├── standardized_file_document.py # YAML + Markdown pairs
+│   │   ├── findings_document.py         # Risks, opportunities, questions
+│   │   └── final_report_document.py     # Full + short reports
 │   └── task/                       # Task documents (temporary)
 ├── flows/                          # Four-stage pipeline flows
 │   ├── step_01_summary/            # Creates initial summary
 │   │   ├── summary_flow.py
 │   │   └── tasks/
-│   │       ├── create_initial_summary.py
-│   │       └── create_initial_summary.jinja2
+│   │       ├── create_summary.py           # Initial JSON summary
+│   │       ├── create_summary.jinja2
+│   │       ├── create_short_description.py # 50-100 word description
+│   │       ├── create_short_description.jinja2
+│   │       ├── create_long_description.py  # 500-1000 word description
+│   │       └── create_long_description.jinja2
 │   ├── step_02_standardization/    # Converts to English Markdown
 │   │   ├── standardization_flow.py
 │   │   └── tasks/
-│   │       ├── standardize_files.py
+│   │       ├── extract_metadata.py         # Extract YAML metadata
+│   │       ├── extract_metadata.jinja2
+│   │       ├── standardize_content.py      # Convert to Markdown
+│   │       ├── standardize_content.jinja2
+│   │       ├── standardize_files.py        # Legacy combined task
 │   │       └── standardize_files.jinja2
 │   ├── step_03_review/             # Generates findings
 │   │   ├── review_flow.py
@@ -253,8 +272,10 @@ ai_simple_research_pipeline/
 │   └── step_04_report/             # Writes final report
 │       ├── report_flow.py
 │       └── tasks/
-│           ├── write_final_report.py
-│           └── write_final_report.jinja2
+│           ├── write_full_report.py        # 15-20 page report
+│           ├── write_full_report.jinja2
+│           ├── write_short_report.py       # 5 page summary
+│           └── write_short_report.jinja2
 ├── prompts/                        # Shared prompt templates
 │   └── document_formatting_rules.jinja2
 ├── cli.py                          # CLI interface for running pipelines

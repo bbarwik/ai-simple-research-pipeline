@@ -7,4 +7,5 @@ class FinalReportDocument(FlowDocument):
     """Final due diligence report in markdown format."""
 
     class FILES(StrEnum):
-        FINAL_REPORT = "final_report.md"
+        SHORT_REPORT = "short_report.md"
+        FULL_REPORT = "full_report.md"

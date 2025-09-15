@@ -106,12 +106,15 @@ async def main() -> int:
     # 3) Build parameters equivalent to research_pipeline.py example
     parameters: dict[str, Any] = {
         "project_name": "privateai",
-        "documents": "projects/privateai2",
+        "documents": "",  # it will create a new bucket automatically
         "flow_options": {
             "input_documents_urls": [f"{webhook_base}/inputs/privateai_project_description.pdf"],
             "output_documents_urls": {
-                "final_report.md": f"{webhook_base}/outputs/final_report.md",
+                "full_report.md": f"{webhook_base}/outputs/full_report.md",
+                "short_report.md": f"{webhook_base}/outputs/short_report.md",
                 "initial_summary.json": f"{webhook_base}/outputs/initial_summary.json",
+                "short_description.md": f"{webhook_base}/outputs/short_description.md",
+                "long_description.md": f"{webhook_base}/outputs/long_description.md",
             },
             "report_webhook_url": f"{webhook_base}/webhook/report",
             "status_webhook_url": f"{webhook_base}/webhook/status",

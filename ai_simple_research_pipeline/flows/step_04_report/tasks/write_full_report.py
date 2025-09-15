@@ -16,7 +16,7 @@ logger = get_pipeline_logger(__name__)
 
 
 @pipeline_task
-async def write_final_report(
+async def write_full_report(
     standardized_documents: DocumentList,
     initial_summary: Document,
     risks: Document,
@@ -25,8 +25,8 @@ async def write_final_report(
     model: ModelName,
     project_name: str,
 ) -> FinalReportDocument:
-    """Generate comprehensive due-diligence report from all artifacts."""
-    prompt = prompt_manager.get("write_final_report", project_name=project_name)
+    """Generate comprehensive due-diligence report (15-20 pages) from all artifacts."""
+    prompt = prompt_manager.get("write_full_report", project_name=project_name)
 
     # Context: all content for provider caching (static documents)
     context = AIMessages(
@@ -36,7 +36,7 @@ async def write_final_report(
     # Messages: the dynamic prompt
     messages = AIMessages([prompt])
 
-    # Generate report using context/messages split for caching
+    # Generate full report (15-20 pages) using context/messages split for caching
     result = await llm.generate(
         model=model,
         context=context,
@@ -44,5 +44,5 @@ async def write_final_report(
     )
 
     return FinalReportDocument.create(
-        name=FinalReportDocument.FILES.FINAL_REPORT, content=result.content
+        name=FinalReportDocument.FILES.FULL_REPORT, content=result.content
     )

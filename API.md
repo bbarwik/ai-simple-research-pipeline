@@ -84,20 +84,30 @@ For the **main orchestration** (`research_pipeline`), the `parameters` object mu
 ```json
 {
   "project_name": "my_project",
-  "documents": "projects/my_project",   // or a gs:// path
+  "documents": "gs://my-bucket/projects/my_project",   // GCS bucket path or empty string
   "flow_options": {
     "input_documents_urls": [
       "https://storage.googleapis.com/…?X-Goog-Signature=…"
     ],
     "output_documents_urls": {
-      "final_report.md": "https://storage.googleapis.com/…?X-Goog-Signature=…",
-      "initial_summary.json": "https://storage.googleapis.com/…?X-Goog-Signature=…"
+      "full_report.md": "https://storage.googleapis.com/…?X-Goog-Signature=…",
+      "short_report.md": "https://storage.googleapis.com/…?X-Goog-Signature=…",
+      "initial_summary.json": "https://storage.googleapis.com/…?X-Goog-Signature=…",
+      "short_description.md": "https://storage.googleapis.com/…?X-Goog-Signature=…",
+      "long_description.md": "https://storage.googleapis.com/…?X-Goog-Signature=…"
     },
     "report_webhook_url": "https://yourapp.example.com/webhook/report",
     "status_webhook_url": "https://yourapp.example.com/webhook/status"
   }
 }
 ```
+
+> **Important: About the `documents` parameter**
+>
+> * Set to a **Google Cloud Storage path** (e.g., `gs://my-bucket/path`) to use an existing bucket
+> * Set to **empty string** (`""`) to automatically create a new GCS bucket with a unique name
+> * When `documents` is empty, **`input_documents_urls` MUST be provided** or the pipeline will fail
+> * The auto-generated bucket name format: `{project_name}-{date}-{random}`
 
 > **Signed URLs**
 >
@@ -107,7 +117,7 @@ For the **main orchestration** (`research_pipeline`), the `parameters` object mu
 >
 >   ```json
 >   "output_documents_urls": {
->     "final_report.md": "https://…",
+>     "full_report.md": "https://…",
 >     "initial_summary.json": {
 >       "url": "https://…",
 >       "headers": { "x-goog-meta-foo": "bar" }
@@ -171,14 +181,17 @@ curl -s -X POST "$API/deployments/research_pipeline/runs" \
 {
   "parameters": {
     "project_name": "my_project",
-    "documents": "projects/my_project",
+    "documents": "",  // Empty string - will create new GCS bucket
     "flow_options": {
       "input_documents_urls": [
         "https://storage.googleapis.com/your-bucket/user_input/pitch_deck.pdf?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
       ],
       "output_documents_urls": {
-        "final_report.md": "https://storage.googleapis.com/your-bucket/final_report/final_report.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&...",
-        "initial_summary.json": "https://storage.googleapis.com/your-bucket/initial_summary/initial_summary.json?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
+        "full_report.md": "https://storage.googleapis.com/your-bucket/full_report/full_report.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&...",
+        "short_report.md": "https://storage.googleapis.com/your-bucket/short_report/short_report.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&...",
+        "initial_summary.json": "https://storage.googleapis.com/your-bucket/initial_summary/initial_summary.json?X-Goog-Algorithm=GOOG4-RSA-SHA256&...",
+        "short_description.md": "https://storage.googleapis.com/your-bucket/short_description/short_description.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&...",
+        "long_description.md": "https://storage.googleapis.com/your-bucket/long_description/long_description.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
       },
       "report_webhook_url": "https://yourapp.example.com/webhook/report",
       "status_webhook_url": "https://yourapp.example.com/webhook/status"
@@ -244,13 +257,14 @@ import { API, headers } from "./mw.js";
 const body = {
   parameters: {
     project_name: "my_project",
-    documents: "projects/my_project",
+    documents: "gs://my-bucket/projects/my_project",  // or "" for new bucket
     flow_options: {
       input_documents_urls: [
         "https://storage.googleapis.com/your-bucket/user_input/doc.pdf?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
       ],
       output_documents_urls: {
-        "final_report.md": "https://storage.googleapis.com/your-bucket/final_report/final_report.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
+        "full_report.md": "https://storage.googleapis.com/your-bucket/full_report/full_report.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&...",
+        "short_report.md": "https://storage.googleapis.com/your-bucket/short_report/short_report.md?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
       },
       report_webhook_url: "https://yourapp.example.com/webhook/report",
       status_webhook_url: "https://yourapp.example.com/webhook/status"
@@ -329,8 +343,8 @@ async def list_deployments():
 
 async def trigger_research_pipeline(
     project_name: str,
-    documents: str,
-    input_signed_urls: list[str],
+    documents: str,  # GCS bucket path or empty string for new bucket
+    input_signed_urls: list[str],  # Required if documents is empty
     output_signed_urls: dict[str, str],
     report_webhook: str = "",
     status_webhook: str = "",
@@ -379,20 +393,24 @@ async def wait_for_terminal(flow_run_id: str, interval: float = 5.0):
 | Field                                | Type      | Required                                               | Description                                                                                       |
 | ------------------------------------ | --------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
 | `project_name`                       | string    | ✅                                                      | Project identifier (used for naming & paths)                                                      |
-| `documents`                          | string    | ✅                                                      | Local folder (e.g., `projects/my_project`) or a storage base (e.g., `gs://…`)                     |
-| `flow_options.input_documents_urls`  | string\[] | ✅ if you want the pipeline to **download** your inputs | GCS **Signed URLs** (`GET`) for the raw input files to analyze                                    |
+| `documents`                          | string    | ✅                                                      | Google Cloud Storage bucket path (e.g., `gs://my-bucket/path`) or empty string. If empty, a new bucket will be created automatically. **Note:** If empty, `input_documents_urls` MUST be provided. |
+| `flow_options.input_documents_urls`  | string\[] | ✅ if `documents` is empty                              | GCS **Signed URLs** (`GET`) for the raw input files to analyze. Required when `documents` is empty. |
 | `flow_options.output_documents_urls` | object    | optional but recommended                               | Map of expected output filenames → GCS **Signed URLs** (`PUT`) so the pipeline can upload results |
 | `flow_options.report_webhook_url`    | string    | optional                                               | Receives a final artifacts summary payload                                                        |
 | `flow_options.status_webhook_url`    | string    | optional                                               | Receives Prefect status webhooks throughout the run                                               |
 
 **Common output names** you can pre-sign:
 
-* `final_report.md`
-* `initial_summary.json`
-* `standardized_file/*.md` (dynamic per input)
-* `review_finding/risks.json`
-* `review_finding/opportunities.json`
-* `review_finding/questions.json`
+* `full_report.md` - Comprehensive 15-20 page due diligence report
+* `short_report.md` - Concise 5-page summary report
+* `initial_summary.json` - Structured project summary
+* `short_description.md` - 50-100 word project description
+* `long_description.md` - 500-1000 word detailed description
+* `{slug}.yaml` - Metadata for each standardized document (dynamic per input)
+* `{slug}.md` - Content for each standardized document (dynamic per input)
+* `risks.json` - Identified risks and concerns
+* `opportunities.json` - Identified opportunities
+* `questions.json` - Critical questions for follow-up
 
 (You can always inspect what got produced by polling `/runs/{id}` and by looking at your webhook payloads.)
 

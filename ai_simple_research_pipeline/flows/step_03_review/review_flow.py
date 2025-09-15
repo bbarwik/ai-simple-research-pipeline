@@ -29,7 +29,7 @@ async def review_flow(
     structured findings for investor due diligence.
     """
     # Get required inputs
-    initial_summary = documents.get_by(InitialSummaryDocument)
+    initial_summary = documents.get_by(InitialSummaryDocument.FILES.INITIAL_SUMMARY)
     standardized_docs = documents.filter_by(StandardizedFileDocument)
 
     # Generate findings using structured output

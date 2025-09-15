@@ -1,0 +1,24 @@
+# Extract Document Metadata
+
+Analyze the provided document and extract structured metadata.
+
+## Requirements
+
+Extract the following information:
+- **Title**: Infer a precise, descriptive title from the document content
+- **Document Type**: Classify as pitch_deck, whitepaper, blog, spec, or other
+- **Date**: Extract publication or version date in YYYY-MM-DD format if available
+- **Language**: Detect the original language code (e.g., en, es, fr, zh)
+- **Summary**: Create a 3-6 sentence improved summary capturing key points
+- **Key Claims**: List the main claims or assertions made in the document
+- **Sources**: Extract internal references, links, or citations
+- **Provenance Notes**: Brief explanation of document characteristics and processing
+
+## Analysis Context
+
+<project_name>{{ project_name }}</project_name>
+<original_filename>{{ file_name }}</original_filename>
+
+## Output Format
+
+Return structured data matching the response schema. Be accurate and conservative - only include information that is explicitly present or clearly implied in the document.

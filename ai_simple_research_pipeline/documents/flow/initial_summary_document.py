@@ -8,3 +8,5 @@ class InitialSummaryDocument(FlowDocument):
 
     class FILES(StrEnum):
         INITIAL_SUMMARY = "initial_summary.json"
+        SHORT_DESCRIPTION = "short_description.md"
+        LONG_DESCRIPTION = "long_description.md"

@@ -42,11 +42,11 @@ class InitialSummary(BaseModel):
 
 
 @pipeline_task
-async def create_initial_summary(
+async def create_summary(
     documents: DocumentList, model: ModelName, project_name: str
 ) -> InitialSummaryDocument:
     """Create initial summary from user input documents."""
-    prompt = prompt_manager.get("create_initial_summary", project_name=project_name)
+    prompt = prompt_manager.get("create_summary", project_name=project_name)
 
     # Static context: all files (provider can cache)
     context = AIMessages(list(documents))
