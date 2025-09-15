@@ -2,81 +2,89 @@
   "questions": [
     {
       "id": "Q1",
-      "question": "What is the specific open-source license intended for the core project, and how will it legally enforce the 'non-commercial use only' restriction, allowing for commercial monetization strategies?",
-      "rationale": "The project explicitly states the open-source version will be 'free for private, non-commercial use only' to prevent unauthorized commercial use but grow the project. However, the choice of license to achieve this while maintaining a truly open-source ethos is critical for legal compliance, community perception, and the commercial business model's viability. This requires careful legal consideration, as many traditional open-source licenses do not easily permit such restrictions.",
-      "expected_signal": "A clear articulation of the chosen open-source license (e.g., AGPL, SSPL, or a custom license) and a legal strategy for enforcing the non-commercial clause, along with examples of other successful projects that have used a similar dual-licensing or tiered open-source model.",
+      "question": "What is the detailed intellectual property strategy concerning patents, trademarks, and open-source licensing to protect the core technology and brand, especially when allowing local compilation of plugins?",
+      "rationale": "The project plans to be open-source but restrict commercial use, while licensing to local companies and allowing community contributions. This creates a complex IP landscape. Additionally, the initial idea of local compilation of Rust plugins, if not carefully managed (WASM is preferred as mitigation), adds complexity. A clear IP strategy is crucial to protect the core innovations, prevent unauthorized commercial exploitation, and manage legal risks associated with an open-source model combined with commercial aspirations.",
+      "expected_signal": "A clear legal framework for the dual-licensing model, outlining the chosen open-source license, how commercial restrictions will be enforced, and plans for patenting novel technical solutions (if any) to prevent competitors from copying key innovations. Concrete plans for trademarking the brand 'PrivateAI' and related names.",
       "evidence": [
         {
-          "file": "FS5HHF",
-          "quote": "The intention is for the open-source version to be free for private, non-commercial use only. Hobbyists can use it for free under these conditions."
+          "file": "X4ZU4W",
+          "quote": "The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
         },
         {
-          "file": "FS5HHF",
-          "quote": "The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
+          "file": "X4ZU4W",
+          "quote": "Legal & Regulatory Deep Dive: Conduct thorough research into GDPR, intellectual property (patents, project name), open-source licensing, and other relevant legal compliance issues with legal counsel."
         }
       ]
     },
     {
       "id": "Q2",
-      "question": "Given the founder's preference to focus on R&D rather than management, what is the concrete plan to recruit an experienced CTO or dedicated People Manager/Team Lead immediately post-funding to manage the growing team and operational aspects?",
-      "rationale": "The founder, while visionary, explicitly states a preference for R&D and disinterest in people management. Scaling a company to 10,000 users and $250k MRR requires strong leadership beyond technical R&D, particularly in team management, operational efficiency, and potentially external technical representation. Not having this role clearly filled or a plan to recruit it quickly can bottleneck growth and operational execution.",
-      "expected_signal": "A detailed recruitment plan for a CTO and/or dedicated People Manager, including target profiles, proposed compensation (e.g., equity), and a timeline for their integration into the team. Evidence of outreach or initial conversations would be positive.",
+      "question": "Given the founder's preference for R&D over management, what specific plan is in place for recruiting a People Manager/Team Lead and a replacement CTO as the company scales to ensure effective team leadership and operational management?",
+      "rationale": "The founder's desire to focus on R&D is a strength for innovation but poses a risk to management and operational scaling. Having a clear plan for bringing in leadership capable of managing a growing team is crucial for the company's long-term success and to prevent potential bottlenecks in execution.",
+      "expected_signal": "A detailed recruitment roadmap for management roles, including desired profiles, timelines, and how the ESOP will be leveraged to attract top talent. Clarity on how responsibilities will transition and overlap during the initial growth phase.",
       "evidence": [
         {
-          "file": "FS5HHF",
+          "file": "X4ZU4W",
           "quote": "Bartosz (CTO) Role: Primary focus on R&D, developing new ideas and products. Prefers to avoid extensive people management associated with a CTO role in a larger company and is open to finding a replacement CTO after achieving a higher valuation because he wants to focus on R&D, not management."
         },
         {
-          "file": "FS5HHF",
+          "file": "X4ZU4W",
           "quote": "People Manager / Team Lead: Required because the founder wishes to focus on technology rather than direct people management."
         }
       ]
     },
     {
       "id": "Q3",
-      "question": "What is the detailed strategy for user acquisition beyond 'target the technical community first' and 'collaborate with YouTubers,' specifically what marketing budget will be allocated for paid acquisition to reach the stated goal of 10,000 paying users within the first year?",
-      "rationale": "Achieving 10,000 paying users generating $250k MRR within a year is an aggressive target. While relying on organic growth from open-source and community engagement is valuable, it might not be sufficient for such rapid scaling. A clear understanding of the broader go-to-market strategy, including paid acquisition channels, budget allocation, and expected CAC (Customer Acquisition Cost), is crucial to evaluate the feasibility of these financial targets.",
-      "expected_signal": "A breakdown of initial marketing spend, specific channels beyond organic (e.g., AI/privacy-focused publications, developer platforms), expected KPIs for each channel, and a realistic customer acquisition cost model to support the user growth projections.",
+      "question": "What specific strategies will be implemented to attract and retain the initial 10,000 paying users and achieve the $250k+ monthly recurring revenue target within the first year post-launch?",
+      "rationale": "The targets for user acquisition and monthly recurring revenue are ambitious for a new open-source, local-first product. While initial target segments are identified, a concrete, actionable go-to-market strategy for conversion to paid users and sustained revenue generation is critical for proving market fit and securing future funding rounds.",
+      "expected_signal": "A detailed step-by-step go-to-market plan outlining specific marketing channels, conversion funnels for user acquisition, pricing strategies to encourage sign-ups, and customer retention mechanisms to ensure recurring revenue. Evidence of early traction or strong interest from target communities would be a positive signal.",
       "evidence": [
         {
-          "file": "OPU74P",
+          "file": "X4ZU4W",
           "quote": "Acquire 10,000 paying users within the first year."
         },
         {
-          "file": "FS5HHF",
-          "quote": "Target the technical community first (developers, privacy advocates, tech startups, web3 community), then expand to a more mainstream audience. Engage through open-source communities (GitHub, relevant forums like those discussed in the \"AI Second Brain Research_.pdf\"), privacy-focused forums, and content marketing tailored to specific professions. Organize collaborations with active members of online communities like Wykop (Polish social news site), Reddit, and Discord, with a particular focus on engaging students and hobbyists."
+          "file": "X4ZU4W",
+          "quote": "Generate $250,000 USD in monthly recurring revenue."
+        },
+        {
+          "file": "X4ZU4W",
+          "quote": "Target the technical community first (developers, privacy advocates, tech startups, web3 community), then expand to a more mainstream audience."
         }
       ]
     },
     {
       "id": "Q4",
-      "question": "What core ethical guidelines and formal boundaries will be defined and implemented for data handling and AI behavior to prevent misuse of the technology and address potential liability for AI errors?",
-      "rationale": "The project aims to process highly personal and sensitive data ('full spectrum of your digital life'). Without clear ethical boundaries and formalized oversight, there's a significant risk of misuse (e.g., surveillance), privacy breaches, or adverse consequences from incorrect AI outputs. The document notes 'Ethical Boundaries for Data Handling: TODO - This needs to be formally defined and decided upon later,' indicating a critical missing piece of the strategy that needs to be addressed early in development.",
-      "expected_signal": "A proposed framework for ethical AI, including principles guiding data collection, processing, and output. Mechanisms for user consent, data redaction, data deletion, and AI output verification. Consideration of appointing an ethics board or similar oversight as the project scales.",
+      "question": "How will the project ensure the long-term feasibility and cost-effectiveness of running powerful AI models locally, considering their current resource intensity and the rapid pace of hardware and model evolution?",
+      "rationale": "The core promise of local-first AI hinges on the ability to run powerful models on user-owned hardware. While models are becoming more efficient, current requirements are still high. A strategy for continuous optimization, adaptation to new models, and managing user expectations regarding hardware investments is crucial.",
+      "expected_signal": "A concrete strategy for model updates (download, resource allocation, compatibility), an analysis of anticipated hardware cost reductions (e.g., 10x mentioned over 2-3 years) and how this aligns with user accessibility, and a plan for supporting a range of hardware configurations without degrading the core experience.",
       "evidence": [
         {
-          "file": "FS5HHF",
-          "quote": "Ethical Boundaries for Data Handling: TODO - This needs to be formally defined and decided upon later."
+          "file": "X4ZU4W",
+          "quote": "The 7B/8B Qwen2.5-VL models require approximately 24GB VRAM and 32GB system RAM. The 32B version would need a Mac M-series with at least 32GB RAM (64GB recommended) and over 60GB of storage. These are significant hardware considerations for local deployment."
         },
         {
-          "file": "FS5HHF",
-          "quote": "Misuse of Technology: Potential for surveillance if misused. Mitigation: Clear ToS, ethical guidelines, design for transparency in shared contexts."
+          "file": "X4ZU4W",
+          "quote": "The cost of AI-capable hardware and running AI models is expected to decrease significantly (potentially 10x) over the next 2-3 years, which will positively impact the project's operational costs and the feasibility of running more powerful models locally."
         }
       ]
     },
     {
       "id": "Q5",
-      "question": "How will the project ensure genuine cross-platform usability and support for data collection beyond macOS, given the initial focus on macOS and the acknowledged challenges for Windows/Linux desktop and mobile platforms?",
-      "rationale": "While the MVP focuses on macOS, the vision targets a broad audience and global market. Desktop data collection (screen, audio, etc.) has OS-specific implementations. The document mentions that 'Browser automation and support for Linux/Windows might also be deferred from the absolute initial MVP.' Deferring these could delay market penetration and limit addressable market size, especially if global expansion is a key strategy.",
-      "expected_signal": "A detailed plan for phasing in Windows and Linux desktop support, including resource allocation and timelines. Clarification on how cross-platform consistency in data collection and user experience will be maintained across different operating systems and devices, especially regarding challenging aspects like screen/audio capture.",
+      "question": "What is the detailed plan for establishing, nurturing, and monetizing the plugin ecosystem, including developer tools, community engagement, and ensuring a healthy marketplace?",
+      "rationale": "A robust plugin ecosystem is central to PrivateAI's extensibility and long-term value. The success of this ecosystem depends on attracting developers, providing secure and easy-to-use tools, and creating a fair monetization model. Details are needed beyond charging a 10-20% commission.",
+      "expected_signal": "Specific plans for a Software Development Kit (SDK) or API for plugins, a developer onboarding process, strategies for community engagement (hackathons, forums, bounties), and clear policies for plugin vetting, security, and dispute resolution within the marketplace. Evidence of outreach to potential plugin developers.",
       "evidence": [
         {
-          "file": "FS5HHF",
-          "quote": "Our initial target is the macOS platform, expanding from there."
+          "file": "X4ZU4W",
+          "quote": "Community Building Strategy: TODO - \"I don't know yet.\" Requires DevRel role."
         },
         {
-          "file": "FS5HHF",
-          "quote": "Cross-Platform Development: OS-specific implementations needed for data collection."
+          "file": "X4ZU4W",
+          "quote": "Plugin & Extension Marketplace Revenue: A commission of 10-20% will be charged on sales of third-party plugins and extensions through the marketplace. PrivateAI may also develop and sell its own premium, proprietary plugins or features."
+        },
+        {
+          "file": "X4ZU4W",
+          "quote": "Develop the initial secure plugin mechanism (e.g., WASM)."
         }
       ]
     }

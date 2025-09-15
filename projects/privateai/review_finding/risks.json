@@ -2,128 +2,128 @@
   "risks": [
     {
       "id": "R1",
-      "title": "High Technical Resource Requirements for Local AI Models",
+      "title": "Computational Resource Management for Local AI Models",
       "category": "tech",
       "severity": "high",
-      "horizon": "medium",
-      "description": "Running advanced local AI models like Qwen2.5-VL requires significant hardware, specifically high VRAM and system RAM. This poses a barrier to entry for many users, as dedicated servers or high-end consumer hardware (like a Mac M-series with 64GB RAM) are needed, which could limit the project's mainstream adoption despite its 'user-friendly' claim.",
+      "horizon": "short",
+      "description": "Local AI models, especially multimodal ones like Qwen2.5-VL, are highly resource-intensive, requiring significant VRAM and system RAM. This could limit the target audience to users with high-end hardware or dedicated servers, potentially excluding a broader market, especially for mobile integration.",
       "evidence": [
         {
-          "file": "FS5HHF",
+          "file": "X4ZU4W",
           "quote": "The 7B/8B Qwen2.5-VL models require approximately 24GB VRAM and 32GB system RAM. The 32B version would need a Mac M-series with at least 32GB RAM (64GB recommended) and over 60GB of storage. These are significant hardware considerations for local deployment."
         },
         {
-          "file": "FS5HHF",
-          "quote": "User hardware costs for running AI models locally can be a barrier."
+          "file": "X4ZU4W",
+          "quote": "Local AI models are resource-intensive."
         }
       ],
       "mitigation": [
-        "Optimize models for efficient inference on a wider range of hardware.",
-        "Provide clear hardware specifications and guides for cost-effective setups.",
-        "Offer an optional cloud-based AI processing service for users without sufficient local hardware.",
-        "Partner with OEMs to offer custom-branded hardware optimized for PrivateAI at competitive prices."
+        "Optimize models for efficiency, including quantization and efficient inference techniques where possible.",
+        "Implement intelligent task scheduling to run resource-heavy processes during user inactivity or when resources are abundant.",
+        "Offer clear hardware specifications and guides for cost-effective setups.",
+        "Provide optional paid cloud-based AI processing for users lacking sufficient local hardware."
       ],
       "confidence": 0.9
     },
     {
       "id": "R2",
-      "title": "Security Risks with Plugin Architecture and Execution",
-      "category": "security",
-      "severity": "high",
-      "horizon": "short",
-      "description": "The initial idea of downloading and compiling Rust source code for plugins locally (high-risk method for Rust plugins) poses severe security vulnerabilities and usability challenges. Malware could be introduced, and compilation could fail, making the system unstable or compromised.",
-      "evidence": [
-        {
-          "file": "FS5HHF",
-          "quote": "Initial (High-Risk) Idea for Rust Plugins: Download Rust source code, compile it locally on the user's machine, and then run the resulting binary. The core application would manage these processes. Research documents strongly advise against this due to major security risks and usability hurdles."
-        },
-        {
-          "file": "OPU74P",
-          "quote": "The 'initial (high-risk) idea for Rust plugins' (local source compilation) is strongly advised against due to security risks and usability hurdles in research documents."
-        }
-      ],
-      "mitigation": [
-        "Adopt WebAssembly (WASM) for sandboxed execution of plugins, providing a secure and performant environment.",
-        "Distribute pre-compiled and digitally signed binaries for plugins to ensure authenticity and integrity.",
-        "Implement OS-level sandboxing or MicroVMs for higher security requirements, especially for untrusted sources.",
-        "Develop a robust plugin manifest system that clearly defines requested permissions and data access."
-      ],
-      "confidence": 0.95
-    },
-    {
-      "id": "R3",
-      "title": "Challenges in Mobile Data Collection and Integration",
+      "title": "Mobile Data Collection Limitations",
       "category": "product",
       "severity": "medium",
       "horizon": "short",
-      "description": "Full and continuous background screen monitoring and detailed UI event capture, as envisioned for desktops, are highly challenging and likely infeasible on non-jailbroken iOS and Android devices due to strict OS-level restrictions. This significantly limits the 'second brain' functionality on mobile platforms and could hinder pervasive digital life integration.",
+      "description": "Full, continuous background screen monitoring and detailed UI event capture, as envisioned for desktops, are highly challenging and likely infeasible on non-jailbroken iOS and Android devices due to strict OS-level restrictions. This limits PrivateAI's ability to offer a truly seamless 'second brain' experience across mobile platforms.",
       "evidence": [
         {
-          "file": "FS5HHF",
+          "file": "X4ZU4W",
           "quote": "Full, continuous background screen monitoring and detailed UI event capture (as envisioned for desktops) are highly challenging and likely infeasible on non-jailbroken iOS and Android devices due to strict OS-level restrictions on background activity and data access."
         },
         {
-          "file": "OPU74P",
-          "quote": "Mobile app strategy initially focuses on user-initiated actions and available OS integrations due to restrictions on continuous background monitoring."
+          "file": "X4ZU4W",
+          "quote": "The mobile client's role may need to shift from pervasive monitoring to more active, user-driven input."
         }
       ],
       "mitigation": [
-        "Focus mobile app development on user-initiated actions (e.g., Share Button integration) and available OS integrations (e.g., calendar events, health data).",
-        "Explore notifications capture and foreground app capture for context, with explicit user permission.",
-        "Prioritize the desktop experience for the MVP and defer complex mobile integrations to later phases, after deeper market and technical evaluation.",
-        "Communicate current mobile capabilities clearly to manage user expectations."
+        "Adapt mobile strategy to focus on user-initiated actions and OS-compliant integrations (e.g., Share Button, notification capture, Foreground App Capture).",
+        "Utilize device's native AI capabilities for on-device processing where app can legitimately access data.",
+        "Clearly communicate mobile limitations and align user expectations with feasible mobile functionalities.",
+        "Exclude comprehensive mobile app support beyond basic input from the initial MVP to manage scope."
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "R3",
+      "title": "Competition from Rapidly Evolving AI Landscape & Big Tech",
+      "category": "competition",
+      "severity": "high",
+      "horizon": "medium",
+      "description": "The AI landscape is rapidly evolving, and major tech companies with vast resources could release similar features, potentially eroding PrivateAI's competitive edge. While PrivateAI focuses on privacy, big tech could also improve their on-device offerings.",
+      "evidence": [
+        {
+          "file": "X4ZU4W",
+          "quote": "Rapidly Evolving AI Landscape & Big Tech Competition: Major tech companies could release similar features. This is a significant concern."
+        },
+        {
+          "file": "X4ZU4W",
+          "quote": "Sustainability of 'Local-First' Advantage: OS vendors might improve on-device privacy features."
+        }
+      ],
+      "mitigation": [
+        "Focus relentlessly on absolute privacy, deep data integration, open extensibility, and community to differentiate.",
+        "Maintain agility in development to quickly adapt to market changes and new AI advancements.",
+        "Build a strong brand around data sovereignty and user empowerment, cultivating a loyal user base.",
+        "Explore partnerships with entities sharing anti-big-tech sentiments, such as privacy-focused companies."
       ],
       "confidence": 0.85
     },
     {
       "id": "R4",
-      "title": "Dependence on Open-Source Ecosystem and Rapid AI Landscape Changes",
-      "category": "tech",
-      "severity": "medium",
-      "horizon": "medium",
-      "description": "PrivateAI relies heavily on the open-source AI ecosystem, which is rapidly evolving. While this offers flexibility, it also means constant effort is required to track, integrate, and optimize new models, potentially diverting resources from core development. There's also a risk that larger tech companies could release similar features, impacting the competitive landscape.",
+      "title": "Plugin System Security Risks",
+      "category": "security",
+      "severity": "high",
+      "horizon": "short",
+      "description": "The initial idea of downloading Rust source code, compiling it locally, and running the resulting binary for plugins poses major security risks and usability hurdles. An insecure plugin system could compromise user data or system integrity, undermining the core privacy promise.",
       "evidence": [
         {
-          "file": "FS5HHF",
-          "quote": "The system needs a strategy for handling updates to local AI models (LLMs, Vision, STT). This includes managing model downloads, resource allocation, and ensuring compatibility as new and improved open-source models emerge frequently. This was noted as a key question for investors."
+          "file": "X4ZU4W",
+          "quote": "Initial (High-Risk) Idea for Rust Plugins: Download Rust source code, compile it locally on the user's machine, and then run the resulting binary. The core application would manage these processes. Research documents strongly advise against this due to major security risks and usability hurdles."
         },
         {
-          "file": "FS5HHF",
-          "quote": "Rapidly Evolving AI Landscape & Big Tech Competition: Major tech companies could release similar features. This is a significant concern."
+          "file": "X4ZU4W",
+          "quote": "The system must be exceptionally clear and transparent about what data is being collected, from which sources, how frequently, and how this data is being processed and utilized by the AI components."
         }
       ],
       "mitigation": [
-        "Invest in a strong Developer Relations (DevRel) team to monitor the AI space and engage with open-source communities.",
-        "Implement a flexible architecture (e.g., LiteLLM proxy) to easily swap out or combine different LLMs.",
-        "Focus on features that Big Tech cannot easily replicate due to privacy and local-first constraints.",
-        "Prioritize modularity to allow for easy integration of new open-source components and models."
+        "Strongly adopt WebAssembly (WASM) for sandboxed execution of all plugins, ensuring a secure and controlled environment.",
+        "Implement robust plugin manifests that define capabilities, data dependencies, resource requirements, and explicitly requested permissions, enforced by the Core application.",
+        "Establish a clear distinction between audited (trusted) and unaudited (third-party) plugins with appropriate warnings and user consent mechanisms.",
+        "Invest in rigorous security audits and community-driven vulnerability identification programs."
       ],
-      "confidence": 0.8
+      "confidence": 0.95
     },
     {
       "id": "R5",
-      "title": "Sustainability of Monetization Model for Open-Source, Local-First Software",
-      "category": "finance",
+      "title": "Founder's Desire to Avoid Management Responsibilities",
+      "category": "team",
       "severity": "medium",
-      "horizon": "long",
-      "description": "Justifying subscription fees for a local-first, open-source product can be challenging, as users might expect core functionality to be free. While a freemium model is planned, convincing users to pay for 'convenience' features (like managed updates or mobile apps) or optional cloud services might prove difficult against the backdrop of a free, open-source core, potentially impacting revenue targets.",
+      "horizon": "medium",
+      "description": "The founder, Bartosz (CTO), prefers to focus on R&D and avoid extensive people management, indicating a need for a replacement CTO or a strong People Manager/Team Lead. This could create a leadership gap or divert resources if not addressed proactively during growth phases.",
       "evidence": [
         {
-          "file": "FS5HHF",
-          "quote": "The open-source core system will be free for personal, non-commercial use, with paid 'convenience' features and services offered for an easier setup and managed updates."
+          "file": "X4ZU4W",
+          "quote": "Bartosz (CTO) Role: Primary focus on R&D, developing new ideas and products. Prefers to avoid extensive people management associated with a CTO role in a larger company and is open to finding a replacement CTO after achieving a higher valuation because he wants to focus on R&D, not management."
         },
         {
-          "file": "OPU74P",
-          "quote": "Monetization: Justifying subscriptions for local-first software; funding open-source."
+          "file": "X4ZU4W",
+          "quote": "People Manager / Team Lead: Required because the founder wishes to focus on technology rather than direct people management."
         }
       ],
       "mitigation": [
-        "Clearly articulate the value proposition of paid 'convenience' features, emphasizing time-savings, enhanced experience, and access to managed services like secure remote access.",
-        "Offer a one-time purchase option to address concerns about future price increases or service discontinuation.",
-        "Diversify revenue streams beyond subscriptions, including a plugin marketplace commission and professional services.",
-        "Actively engage with the open-source community to explain the necessity of commercialization for sustainable development."
+        "Prioritize hiring a skilled People Manager / Team Lead early in the project to manage day-to-day team operations.",
+        "Develop a clear succession plan for the CTO role, potentially identifying and mentoring an internal candidate or actively recruiting an external CTO.",
+        "Ensure the founding team is aware of and aligned with this dynamic, allowing Bartosz to focus on his core strengths in R&D.",
+        "Utilize a strong Employee Stock Option Plan (ESOP) to attract high-caliber leadership talent."
       ],
-      "confidence": 0.75
+      "confidence": 0.8
     }
   ]
 }

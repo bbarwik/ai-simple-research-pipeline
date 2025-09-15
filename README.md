@@ -45,6 +45,18 @@ The `docker-compose.override.yml` file is gitignored and can contain user-specif
 
 ## Quick start
 
+### API Server
+
+The pipeline includes a FastAPI server that provides REST endpoints for triggering pipeline runs via Prefect:
+
+```bash
+# Start the API server (requires Prefect server running)
+python -m ai_simple_research_pipeline.server
+
+# The server will be available at http://localhost:4080
+# API documentation at http://localhost:4080/docs
+```
+
 ### Local Usage
 
 ```bash
@@ -69,7 +81,7 @@ LMNR_DEBUG=true python -m ai_simple_research_pipeline projects/my_project
 
 ### Docker Compose Deployment
 
-The pipeline can be deployed using Docker Compose for production environments:
+The pipeline can be deployed using Docker Compose for production environments with Prefect server and API middleware:
 
 ```bash
 # 1. Create a .env file with your configuration
@@ -77,6 +89,9 @@ cat > .env << 'EOF'
 # Required: LLM API configuration (recommended: OpenRouter)
 OPENAI_BASE_URL=https://openrouter.ai/api/v1
 OPENAI_API_KEY=sk-or-v1-your-key-here
+
+# Required: API middleware authentication
+PREFECT_MIDDLEWARE_API_KEY=your-secure-api-key-here
 
 # Optional: Observability with Laminar (free account at laminar.sh)
 LMNR_PROJECT_API_KEY=lmnr_your_key_here
@@ -91,13 +106,18 @@ EOF
 # Save it as key.json in the project root
 cp /path/to/your/gcs-service-account-key.json ./key.json
 
-# 3. Run with Docker Compose
+# 3. Run with Docker Compose (includes Prefect server and API middleware)
 docker compose up -d
 
-# 4. Execute pipeline with local storage
+# 4. Access the services:
+# - Prefect UI: http://localhost:4200
+# - API Server: http://localhost:4080
+# - API Docs: http://localhost:4080/docs
+
+# 5. Execute pipeline with local storage
 docker compose exec app python -m ai_simple_research_pipeline projects/my_project
 
-# 5. Execute pipeline with Google Cloud Storage
+# 6. Execute pipeline with Google Cloud Storage
 # Ensure your bucket has a user_input/ directory with your documents
 docker compose exec app python -m ai_simple_research_pipeline gs://your-bucket-name/
 
@@ -190,7 +210,10 @@ OPENAI_API_KEY=sk-or-v1-your-key-here
 LMNR_PROJECT_API_KEY=lmnr_...  # Free account at laminar.sh
 LMNR_DEBUG=true                # Enable debug traces
 
-# Optional: Workflow orchestration
+# Required for Docker Compose deployment:
+PREFECT_MIDDLEWARE_API_KEY=your-secure-api-key  # API authentication
+
+# Optional: Workflow orchestration (external Prefect)
 PREFECT_API_URL=http://localhost:4200
 PREFECT_API_KEY=pnu_...
 
@@ -236,7 +259,9 @@ ai_simple_research_pipeline/
 │   └── document_formatting_rules.jinja2
 ├── cli.py                          # CLI interface for running pipelines
 ├── research_pipeline.py            # Main research pipeline orchestration
-├── flow_options.py                 # Model configuration
+├── flow_options.py                 # Model configuration with webhook support
+├── server.py                       # FastAPI server for REST API
+├── http_server.py                  # Test HTTP server for development
 └── __main__.py                     # Prefect deployment entry point
 ```
 

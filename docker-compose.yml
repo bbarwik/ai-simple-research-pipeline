@@ -40,6 +40,33 @@ services:
       - prefect-network
     restart: unless-stopped
 
+  prefect-middleware:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      prefect-server:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      # Point the SDK at the internal Prefect API URL (note trailing /api)
+      PREFECT_API_URL: http://prefect-server:4200/api
+      # API key used by the FastAPI middleware
+      PREFECT_MIDDLEWARE_API_KEY: ${PREFECT_MIDDLEWARE_API_KEY:?set in .env}
+    networks:
+      - prefect-network
+    ports:
+      - "4080:4080"   # expose the middleware outside docker, adjust if needed
+    command: python -u -m ai_simple_research_pipeline.server
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:4080/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
 networks:
   prefect-network:
     driver: bridge
