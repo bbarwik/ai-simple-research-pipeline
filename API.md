@@ -86,6 +86,7 @@ For the **main orchestration** (`research_pipeline`), the `parameters` object mu
   "project_name": "my_project",
   "documents": "gs://my-bucket/projects/my_project",   // GCS bucket path or empty string
   "flow_options": {
+    "mode": "quick",  // "test", "quick", or "full" (default: "quick")
     "input_documents_urls": [
       "https://storage.googleapis.com/…?X-Goog-Signature=…"
     ],
@@ -183,6 +184,7 @@ curl -s -X POST "$API/deployments/research_pipeline/runs" \
     "project_name": "my_project",
     "documents": "",  // Empty string - will create new GCS bucket
     "flow_options": {
+      "mode": "quick",  // "test", "quick", or "full" (default: "quick")
       "input_documents_urls": [
         "https://storage.googleapis.com/your-bucket/user_input/pitch_deck.pdf?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
       ],
@@ -259,6 +261,7 @@ const body = {
     project_name: "my_project",
     documents: "gs://my-bucket/projects/my_project",  // or "" for new bucket
     flow_options: {
+      mode: "quick",  // "test", "quick", or "full" (default: "quick")
       input_documents_urls: [
         "https://storage.googleapis.com/your-bucket/user_input/doc.pdf?X-Goog-Algorithm=GOOG4-RSA-SHA256&..."
       ],
@@ -346,6 +349,7 @@ async def trigger_research_pipeline(
     documents: str,  # GCS bucket path or empty string for new bucket
     input_signed_urls: list[str],  # Required if documents is empty
     output_signed_urls: dict[str, str],
+    mode: str = "quick",  # "test", "quick", or "full"
     report_webhook: str = "",
     status_webhook: str = "",
     tags: list[str] = None,
@@ -355,6 +359,7 @@ async def trigger_research_pipeline(
             "project_name": project_name,
             "documents": documents,
             "flow_options": {
+                "mode": mode,
                 "input_documents_urls": input_signed_urls,
                 "output_documents_urls": output_signed_urls,
                 "report_webhook_url": report_webhook,
@@ -394,10 +399,11 @@ async def wait_for_terminal(flow_run_id: str, interval: float = 5.0):
 | ------------------------------------ | --------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
 | `project_name`                       | string    | ✅                                                      | Project identifier (used for naming & paths)                                                      |
 | `documents`                          | string    | ✅                                                      | Google Cloud Storage bucket path (e.g., `gs://my-bucket/path`) or empty string. If empty, a new bucket will be created automatically. **Note:** If empty, `input_documents_urls` MUST be provided. |
+| `flow_options.mode`                  | string    | optional (default: "quick")                            | Pipeline execution mode: "test", "quick", or "full". Controls the depth and detail of analysis. |
 | `flow_options.input_documents_urls`  | string\[] | ✅ if `documents` is empty                              | GCS **Signed URLs** (`GET`) for the raw input files to analyze. Required when `documents` is empty. |
 | `flow_options.output_documents_urls` | object    | optional but recommended                               | Map of expected output filenames → GCS **Signed URLs** (`PUT`) so the pipeline can upload results |
 | `flow_options.report_webhook_url`    | string    | optional                                               | Receives a final artifacts summary payload                                                        |
-| `flow_options.status_webhook_url`    | string    | optional                                               | Receives Prefect status webhooks throughout the run                                               |
+| `flow_options.status_webhook_url`    | string    | optional                                               | Receives Prefect status webhooks throughout the run. Now includes progress tracking (step/total_steps/progress fields). |
 
 **Common output names** you can pre-sign:
 
@@ -434,7 +440,11 @@ Consider:
 
 ## Webhooks
 
-If you provide `status_webhook_url`, the middleware’s underlying Prefect hooks will POST status changes as JSON.
+If you provide `status_webhook_url`, the middleware's underlying Prefect hooks will POST status changes as JSON. The status webhook payload now includes progress tracking with the following additional fields:
+* `step` - Current flow step number (1-based)
+* `total_steps` - Total number of flows in the pipeline
+* `progress` - Calculated progress percentage (0.0 to 1.0)
+
 `report_webhook_url` receives a summary with newly created documents at the end of the run.
 
 Ensure your endpoints are accessible from within the Docker network (or exposed publicly) and accept `application/json`.

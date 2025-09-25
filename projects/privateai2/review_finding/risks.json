@@ -1,0 +1,130 @@
+{
+  "risks": [
+    {
+      "id": "R001",
+      "title": "High Technical Complexity and Resource Demands for Local AI",
+      "category": "tech",
+      "severity": "high",
+      "horizon": "short",
+      "description": "Running powerful multimodal AI models locally, such as Qwen2.5-VL for vision, demands significant computational resources (VRAM, RAM, storage), which could be a barrier for many users. The development also faces complexity in ensuring robust, secure, and cross-platform data collection, sandboxed plugin execution (WASM vs. local compilation), and efficient inter-process communication for real-time data streams.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "The 7B/8B Qwen2.5-VL models require approximately 24GB VRAM and 32GB system RAM. The 32B version would need a Mac M-series with at least 32GB RAM (64GB recommended) and over 60GB of storage. These are significant hardware considerations for local deployment."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Initial (High-Risk) Idea for Rust Plugins: Download Rust source code, compile it locally on the user's machine, and then run the resulting binary. The core application would manage these processes. Research documents strongly advise against this due to major security risks and usability hurdles."
+        }
+      ],
+      "mitigation": [
+        "Optimize AI models for efficiency and lower resource footprint, leveraging techniques like quantization.",
+        "Implement robust task scheduling to run intensive processes during user inactivity.",
+        "Develop comprehensive guides for cost-effective hardware setups and clear system requirements.",
+        "Prioritize WebAssembly (WASM) for secure, sandboxed plugin execution to mitigate security and compilation risks.",
+        "Focus on modular design and efficient IPC mechanisms like gRPC or message queues for scalability and stability."
+      ],
+      "confidence": 0.9
+    },
+    {
+      "id": "R002",
+      "title": "Limited Mobile Data Collection & Fragmented User Experience",
+      "category": "product",
+      "severity": "medium",
+      "horizon": "short",
+      "description": "Strict OS-level restrictions on iOS and Android significantly limit the project's ability to perform continuous background screen monitoring and detailed UI event capture, which are central to the 'second brain' concept. This limitation could result in a fragmented user experience, as the comprehensive data capture envisioned for desktops may not be replicable on mobile, affecting the project's core promise of capturing a user's 'entire digital life'.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Full, continuous background screen monitoring and detailed UI event capture (as envisioned for desktops) are highly challenging and likely infeasible on non-jailbroken iOS and Android devices due to strict OS-level restrictions on background activity and data access."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Research indicates the mobile client's role may need to shift from pervasive monitoring to more active, user-driven input."
+        }
+      ],
+      "mitigation": [
+        "Adapt the mobile strategy to focus on user-initiated actions, app-specific integrations, and OS-compliant methods like notification capture and share extensions.",
+        "Clearly communicate the scope of mobile functionality to manage user expectations.",
+        "Prioritize the desktop MVP and gradually explore innovative, OS-compliant mobile data capture methods as technology evolves.",
+        "Develop the mobile client primarily as an interface to query the home server and for user-driven data input."
+      ],
+      "confidence": 0.85
+    },
+    {
+      "id": "R003",
+      "title": "Market Adoption & Competition from 'Good Enough' Cloud Solutions",
+      "category": "market",
+      "severity": "high",
+      "horizon": "medium",
+      "description": "The project faces a significant risk that users might stick with existing 'good enough' cloud-based AI solutions due to the perceived complexity of setting up and managing a local-first system. Furthermore, rapidly evolving AI capabilities from large tech companies could introduce similar privacy-enhancing features, potentially diluting PrivateAI's unique value proposition and hindering its ability to achieve its ambitious user acquisition and revenue targets.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Users may stick with existing tools if PrivateAI's setup is perceived as too complex."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Rapidly Evolving AI Landscape & Big Tech Competition: Major tech companies could release similar features. This is a significant concern."
+        }
+      ],
+      "mitigation": [
+        "Clearly articulate and demonstrate PrivateAI's unique benefits of absolute privacy, deep personalization, and user sovereignty that generic cloud solutions cannot match.",
+        "Invest heavily in user-friendly design and simplified onboarding processes to reduce perceived complexity.",
+        "Develop a strong community around open-source principles and data ownership.",
+        "Continuously innovate on core features and the plugin ecosystem to maintain differentiation."
+      ],
+      "confidence": 0.9
+    },
+    {
+      "id": "R004",
+      "title": "Monetization and Open-Source Sustainability Challenges",
+      "category": "finance",
+      "severity": "medium",
+      "horizon": "medium",
+      "description": "PrivateAI's business model relies on monetizing 'convenience' features and a plugin marketplace while maintaining a free, open-source core. The challenge lies in justifying subscriptions for a local-first product, preventing unauthorized commercial use of the open-source core, and ensuring sufficient revenue to fund ongoing complex development and maintenance. The exact open-source license to achieve this balance is yet to be determined.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Monetization: Justifying subscriptions for local-first software; funding open-source."
+        }
+      ],
+      "mitigation": [
+        "Implement a clear dual-licensing model or a strong open-source license that restricts commercial use without a paid license.",
+        "Develop highly differentiated 'convenience' features (e.g., managed updates, official mobile apps, curated marketplace, bundled VPN) that provide significant value to justify subscription costs.",
+        "Diversify monetization streams, including enterprise solutions, hardware sales/rentals, and a commission-based plugin marketplace.",
+        "Communicate transparently with the open-source community about the need for commercialization to ensure project sustainability."
+      ],
+      "confidence": 0.8
+    },
+    {
+      "id": "R005",
+      "title": "Talent Acquisition and Team Management Deficiencies",
+      "category": "team",
+      "severity": "medium",
+      "horizon": "short",
+      "description": "The project requires highly specialized skills in AI, UI/UX design, and developer relations, which are scarce and expensive. The founder's preference to focus on R&D rather than direct people management creates a critical need for a People Manager/Team Lead and a clear talent acquisition strategy, posing a risk to timely team formation and effective project execution.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Critical hires include UI/UX Designer, AI Specialist, DevRel, IT Infrastructure Manager, People Manager/Team Lead, and Business Development."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Bartosz (CTO) Role: Primary focus on R&D, developing new ideas and products. Prefers to avoid extensive people management associated with a CTO role in a larger company and is open to finding a replacement CTO after achieving a higher valuation because he wants to focus on R&D, not management."
+        }
+      ],
+      "mitigation": [
+        "Prioritize hiring a skilled People Manager/Team Lead immediately to establish effective team structures and processes.",
+        "Develop a comprehensive talent acquisition strategy, leveraging a significant Employee Stock Option Plan (ESOP), compelling technical challenges, and the open-source community.",
+        "Outsource specialized roles like UI/UX design to agencies with proven AI expertise in the short term.",
+        "Actively engage with open-source communities to identify and attract potential contributors and future hires."
+      ],
+      "confidence": 0.85
+    }
+  ]
+}

@@ -70,10 +70,13 @@ python -m ai_simple_research_pipeline projects/my_project
 # Select specific flows (indices are 1-based)
 python -m ai_simple_research_pipeline projects/my_project --start 2 --end 3
 
-# Choose models from FlowOptions (default: google/gemini-2.5-flash)
+# Choose execution mode (test, quick, or full)
+python -m ai_simple_research_pipeline projects/my_project --mode quick
+
+# Choose models from FlowOptions (default: gemini-2.5-flash)
 python -m ai_simple_research_pipeline projects/my_project \
-  --core-model "google/gemini-2.5-flash" \
-  --small-model "google/gemini-2.5-flash-lite"
+  --core-model "gemini-2.5-flash" \
+  --small-model "gemini-2.5-flash-lite"
 
 # Debug traces
 LMNR_DEBUG=true python -m ai_simple_research_pipeline projects/my_project
@@ -200,8 +203,9 @@ Note: The framework automatically creates output directories based on document t
 ### Default Models
 
 The pipeline uses Google Gemini models by default (configured in `flow_options.py`):
-- **Core model**: `google/gemini-2.5-flash` (for analysis and report generation)
-- **Small model**: `google/gemini-2.5-flash-lite` (for standardization)
+- **Core model**: `gemini-2.5-flash` (for analysis and report generation)
+- **Small model**: `gemini-2.5-flash-lite` (for standardization)
+- **Mode**: `quick` (default) - Controls analysis depth (test/quick/full)
 
 ### Environment Variables
 
@@ -279,8 +283,8 @@ ai_simple_research_pipeline/
 ├── prompts/                        # Shared prompt templates
 │   └── document_formatting_rules.jinja2
 ├── cli.py                          # CLI interface for running pipelines
-├── research_pipeline.py            # Main research pipeline orchestration
-├── flow_options.py                 # Model configuration with webhook support
+├── research_pipeline.py            # Main research pipeline with improved webhook progress tracking
+├── flow_options.py                 # Model configuration with mode (test/quick/full) and webhook support
 ├── server.py                       # FastAPI server for REST API
 ├── http_server.py                  # Test HTTP server for development
 └── __main__.py                     # Prefect deployment entry point

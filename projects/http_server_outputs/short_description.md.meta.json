@@ -1,0 +1,13 @@
+{
+  "received_at": 1758804680,
+  "headers": {
+    "Host": "127.0.0.1:8000",
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate",
+    "Connection": "keep-alive",
+    "User-Agent": "python-httpx/0.28.1",
+    "Content-Type": "text/markdown",
+    "Content-Length": "671"
+  },
+  "size": 671
+}

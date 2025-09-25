@@ -33,7 +33,9 @@ from ai_simple_research_pipeline.http_server import start_test_http_server, stop
 logger = get_pipeline_logger(__name__)
 
 
-@pipeline_task(retries=3, retry_delay_seconds=60, trace_ignore_inputs=["documents"])
+@pipeline_task(
+    retries=3, retry_delay_seconds=60, trace_ignore_inputs=["documents"], trace_level="debug"
+)
 async def send_report_webhook(webhook_url: str, project_name: str, documents: DocumentList):
     payload = {
         "project_name": project_name,
@@ -91,6 +93,8 @@ class StatusWebhookHook:
 
     project_name: str
     webhook_url: str
+    step: int
+    total_steps: int
     _chain: Any = None  # internal sequencing
 
     async def __call__(self, _flow, fr: FlowRun, _state: State):
@@ -99,10 +103,20 @@ class StatusWebhookHook:
         info = fr.model_dump(exclude={"parameters"}, mode="json")
         if "data" in info.get("state", {}):
             del info["state"]["data"]
+
+        step = self.step - 1
+        if fr.state and fr.state.is_completed():
+            step = step + 1
+
+        progress = step / max(self.total_steps, 1)
+        progress = round(max(min(progress, 1), 0), 2)
         payload = {
             "project_name": self.project_name,
             "flow_run_id": str(fr.id),
             "deployment_id": deployment.get_id(),
+            "step": self.step,
+            "total_steps": self.total_steps,
+            "progress": progress,
             "data": info,
         }
         logger.info(f"Queueing status webhook -> {self.webhook_url}")
@@ -114,9 +128,17 @@ class StatusWebhookHook:
         )
 
 
-@flow(name="research_pipeline", flow_run_name="research_pipeline-{project_name}", log_prints=True)
-@trace(name="research_pipeline")
-async def research_pipeline(project_name: str, documents: str, flow_options: ProjectFlowOptions):
+@flow(
+    name="prepare_documents",
+    flow_run_name="prepare_documents",
+    log_prints=True,
+    retries=3,
+    retry_delay_seconds=60,
+)
+@trace(name="prepare_documents")
+async def prepare_documents(
+    project_name: str, documents: str, input_documents_urls: list[str]
+) -> str:
     if not documents:
         base = re.sub(r"[^a-z0-9-]", "-", project_name.lower()).strip("-") or "project"
         random_suffix = "".join(random.choices(string.ascii_lowercase + string.digits, k=6))
@@ -126,33 +148,53 @@ async def research_pipeline(project_name: str, documents: str, flow_options: Pro
         documents = storage.url_for("")
         logger.info(f"Created GCS bucket: {bucket}")
 
-    if flow_options.input_documents_urls:
+    if input_documents_urls:
         doc_types = FLOWS[0].config.get_input_document_types()
         if len(doc_types) != 1:
             raise ValueError("Only one input document type is supported")
         storage = await Storage.from_uri(documents)
         target_base = storage.with_base(doc_types[0].canonical_name())
         results = await asyncio.gather(
-            *[download_input_document(url) for url in flow_options.input_documents_urls]
+            *[download_input_document(url) for url in input_documents_urls]
         )
         for name, content in results:
             await target_base.write_bytes(name, content)
+    return documents
 
-    status_hook = StatusWebhookHook(project_name, flow_options.status_webhook_url)
+
+@flow(name="research_pipeline", flow_run_name="research_pipeline-{project_name}", log_prints=True)
+@trace(name="research_pipeline")
+async def research_pipeline(project_name: str, documents: str, flow_options: ProjectFlowOptions):
+    status_hooks = []
+    if flow_options.status_webhook_url:
+        status_hooks.append(
+            StatusWebhookHook(project_name, flow_options.status_webhook_url, 0, len(FLOWS))
+        )
+
+    documents = await prepare_documents.with_options(  # type: ignore
+        on_completion=status_hooks,
+        on_failure=status_hooks,
+        on_cancellation=status_hooks,
+        on_crashed=status_hooks,
+        on_running=status_hooks,
+    )(project_name, documents, flow_options.input_documents_urls)
+    logger.info(f"Documents uri: {documents}")
 
     new_docs: DocumentList = DocumentList()
     output_futures = []
     for idx, pipeline_flow in enumerate(FLOWS, start=1):
         logger.info(f"Starting flow {idx} of {len(FLOWS)}: {pipeline_flow.name}")
+        for status_hook in status_hooks:
+            status_hook.step = idx
         current = await pipeline_flow.config.load_documents(documents)
         pipeline_flow_fn = pipeline_flow.with_options(
             retries=3,
             retry_delay_seconds=60,
-            on_completion=[status_hook],
-            on_failure=[status_hook],
-            on_cancellation=[status_hook],
-            on_crashed=[status_hook],
-            on_running=[status_hook],
+            on_completion=status_hooks,
+            on_failure=status_hooks,
+            on_cancellation=status_hooks,
+            on_crashed=status_hooks,
+            on_running=status_hooks,
         )
         new_docs = await pipeline_flow_fn(project_name, current, flow_options)
         logger.info(f"Flow {pipeline_flow.name} produced {len(new_docs)} documents")

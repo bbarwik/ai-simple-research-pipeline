@@ -1,0 +1,44 @@
+title: 'PrivateAI: Reclaiming Your Digital Life, Intelligently & Privately'
+original_filename: privateai_project_description.pdf
+doc_type: whitepaper
+published_or_version_date: '2025-05-11'
+language_detected: en
+summary_improved: PrivateAI is an open-source project creating a user-friendly,
+  local-first "second brain" for personal data sovereignty and AI-driven
+  insights. It aims to capture and organize a user's digital life, offering
+  personalized assistance and automation without compromising privacy. The
+  project emphasizes local AI processing, a modular plugin system, and a
+  user-friendly design, with an initial focus on a macOS desktop MVP.
+  Monetization will involve paid convenience features and a marketplace, while
+  the core remains open-source. The vision is to become the leading platform for
+  private, user-centric AI.
+key_claims:
+- PrivateAI is building the first user-friendly, open-source 'second brain' that
+  runs entirely on local hardware, ensuring data privacy and user sovereignty.
+- It aims to capture and organize digital life for personalized insights and
+  automation, reclaiming control from third-party cloud services.
+- The solution emphasizes local-first AI processing, comprehensive data
+  integration via a modular plugin system, and a user-friendly design.
+- Core system functionalities include information management, task automation,
+  insights, and communication/research assistance.
+- The project will launch with a macOS desktop MVP, demonstrating the AI's
+  ability to answer user questions, propose messages, organize tasks, and index
+  information.
+- Monetization will stem from paid 'convenience' features, a plugin marketplace,
+  enterprise solutions, and hardware sales/rentals, while the core remains
+  open-source for non-commercial use.
+- Technical architecture involves a dual-app model (client/server), secure
+  plugin execution via WebAssembly (WASM), robust IPC, and hybrid data storage
+  (SQLite+DuckDB) with vector embeddings.
+- Development is agile and iterative, with a phased roadmap starting May 2025,
+  prioritizing desktop MVP before expanding to mobile (initially user-initiated
+  input) and advanced AI capabilities.
+- The project plans for rapid global market entry, targeting regions seeking
+  independence from US-based AI solutions, with localization and licensing
+  models.
+- Critical hires include UI/UX Designer, AI Specialist, DevRel, IT
+  Infrastructure Manager, People Manager/Team Lead, and Business Development.
+sources:
+- privateai_project_description.pdf
+provenance_notes: This document is a whitepaper detailing the PrivateAI project.
+  It was processed to extract key metadata as per the requirements.

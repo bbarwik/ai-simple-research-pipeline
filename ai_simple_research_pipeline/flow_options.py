@@ -1,3 +1,5 @@
+from typing import Literal
+
 from ai_pipeline_core import FlowOptions, ModelName
 from pydantic import Field
 
@@ -5,8 +7,10 @@ from pydantic import Field
 class ProjectFlowOptions(FlowOptions):
     """Project-specific flow configuration for startup analysis pipeline."""
 
-    core_model: ModelName = Field(default="google/gemini-2.5-flash")
-    small_model: ModelName = Field(default="google/gemini-2.5-flash-lite")
+    mode: Literal["test", "quick", "full"] = Field(default="quick")
+
+    core_model: ModelName = Field(default="gemini-2.5-flash")
+    small_model: ModelName = Field(default="gemini-2.5-flash-lite")
 
     # bellow 2 fields are for GCS signed urls
     input_documents_urls: list[str] = Field(

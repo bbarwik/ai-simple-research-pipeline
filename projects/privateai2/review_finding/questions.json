@@ -1,0 +1,84 @@
+{
+  "questions": [
+    {
+      "id": "Q001",
+      "question": "What is the specific legal strategy for intellectual property protection, especially regarding patents, given the claim of being the 'first user-friendly, open-source 'second brain' that runs entirely on local hardware'?",
+      "rationale": "The project claims to be a pioneer in the market. A clear intellectual property strategy, particularly around patents for unique architectural elements or methodologies (e.g., plugin system, secure local AI processing flows), is crucial to protect this first-mover advantage from competitors, especially larger tech companies. This will safeguard long-term valuation and competitive differentiation.",
+      "expected_signal": "A clear plan for patent applications on core innovative components, a strategy for trademarking the project name and related branding, and a legal assessment of how open-source licensing integrates with IP protection. Absence of such a plan, or reliance solely on open-source, would be a negative signal.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.yaml",
+          "quote": "PrivateAI is building the first user-friendly, open-source 'second brain' that runs entirely on local hardware, ensuring data privacy and user sovereignty."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Legal considerations (licensing, project name, patents, GDPR)."
+        }
+      ]
+    },
+    {
+      "id": "Q002",
+      "question": "How will PrivateAI formally define and enforce ethical boundaries for data handling and AI behavior to prevent potential misuse of such a powerful personal surveillance tool, and what mechanisms will be in place for user oversight and redress?",
+      "rationale": "The system's ability to 'capture and organize your digital life\u2014from documents to conversations\u2014providing personalized insights and automation' raises significant ethical concerns about data privacy, potential surveillance (even self-surveillance), and misuse. A clear, formal definition of ethical boundaries, transparency mechanisms, and user control features are paramount for building trust, preventing reputational damage, and mitigating legal liabilities.",
+      "expected_signal": "A detailed ethical framework document, clear user consent flows for data collection and processing, robust mechanisms for user review and deletion of data, and a transparent policy on AI model behavior and data usage. Lack of a formal ethical framework or vague responses would be a negative signal.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Ethical Boundaries for Data Handling: TODO - This needs to be formally defined and decided upon later."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Misuse of Technology: Potential for surveillance if misused. Mitigation: Clear ToS, ethical guidelines, design for transparency in shared contexts."
+        }
+      ]
+    },
+    {
+      "id": "Q003",
+      "question": "What is the detailed, prioritized feature set and scope for the Minimum Viable Product (MVP), and what specific criteria define its completion to meet the aggressive launch timeline?",
+      "rationale": "The document outlines a broad vision for the MVP including 'core desktop data capture, AI-powered Q&A, and basic task organization.' However, the exact 'precise feature set for this MVP is still to be fully finalized.' A clear, detailed, and constrained MVP scope is critical to ensure focused development, efficient resource allocation, and timely market entry, especially given the ambitious goal of completing the MVP by the end of July 2025.",
+      "expected_signal": "A detailed list of MVP features with explicit acceptance criteria, clear exclusions of features for later phases (e.g., full mobile app, browser automation for Linux/Windows), and a robust plan for user testing and feedback integration. Ambiguity or an overly broad scope would be a negative signal.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.yaml",
+          "quote": "The project will launch with a macOS desktop MVP, demonstrating the AI's ability to answer user questions, propose messages, organize tasks, and index information."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "The precise feature set for the MVP is still to be finalized but will revolve around these core value propositions."
+        }
+      ]
+    },
+    {
+      "id": "Q004",
+      "question": "What is the detailed strategy for providing user-friendly onboarding and customer support for non-technical users, particularly regarding the complexities of local server setup, ongoing maintenance, and troubleshooting across diverse hardware configurations?",
+      "rationale": "While the project targets tech-savvy early adopters, its long-term vision includes a 'much broader audience' and 'user-friendly for non-technical individuals'. The inherent complexity of local AI deployment and maintenance (e.g., managing hardware, software updates, resource consumption) could be a significant barrier to mainstream adoption and lead to high customer support costs if not addressed proactively.",
+      "expected_signal": "A comprehensive plan for simplified installers, intuitive UI/UX, extensive documentation (including video tutorials), community forums, self-diagnostic tools, and a tiered support model (e.g., community-driven for free users, dedicated support for paid tiers). A lack of focus on simplifying the experience for non-technical users would be a negative signal.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "User-Friendly Design: While the underlying technology is complex, the user experience will be designed for simplicity and intuitiveness, making PrivateAI accessible even to non-technical users."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "Scaling Customer Support: Complex for self-hosted, diverse user setups. Mitigation: Excellent documentation, community forums, diagnostic tools, tiered support."
+        }
+      ]
+    },
+    {
+      "id": "Q005",
+      "question": "Which specific open-source license is being considered to allow free non-commercial use while preventing unauthorized commercial exploitation, and what legal mechanisms will be in place to enforce this licensing model globally?",
+      "rationale": "The business model relies on a clear distinction between free non-commercial use and paid commercial/convenience features. The current plan states that 'The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility.' Without a defined and enforceable licensing model, the project risks revenue cannibalization, loss of competitive advantage, and difficulty in funding its long-term development.",
+      "expected_signal": "A definitive choice of an open-source license (e.g., AGPL for core, or a dual-licensing strategy with a proprietary commercial license), a legal opinion on its enforceability across target markets, and a plan for monitoring compliance. Uncertainty or a reliance on vague licensing terms would be a negative signal.",
+      "evidence": [
+        {
+          "file": "privateai-project-description.md",
+          "quote": "The intention is for the open-source version to be free for private, non-commercial use only. Hobbyists can use it for free under these conditions. The specific open-source license that allows this restriction is yet to be determined. Dual licensing is a possibility being considered, as other projects successfully use this model."
+        },
+        {
+          "file": "privateai-project-description.md",
+          "quote": "The goal is to maintain an open-source ethos while preventing unauthorized commercial use or direct code/idea appropriation by other commercial projects without fair compensation."
+        }
+      ]
+    }
+  ]
+}
